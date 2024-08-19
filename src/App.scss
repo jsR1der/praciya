@@ -2,10 +2,10 @@
 
 body {
   font-family: "Nunito", sans-serif;
-  background-color: styles.$background-color;
-  @include styles.bodyFont;
+  background-color: styles.$background__color;
+  @include styles.body-font;
 }
 
 h1 {
-  @include styles.headingFont
+  @include styles.heading-font
 }

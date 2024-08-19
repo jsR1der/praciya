@@ -1,0 +1,21 @@
+@use "../../styles/colors" as *;
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.button {
+  transition: $transition;
+  width: 100px;
+  height: 34px;
+  border-radius: 80px;
+  border: none;
+}
+
+.button--hover:hover {
+  @include hover-transition;
+  background-color: $button--hover;
+}
+
+.button--disabled {
+  @include button__disabled;
+}
+

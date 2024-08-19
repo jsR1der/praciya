@@ -1,3 +1,21 @@
-$primary-color: #F4E041;
-$secondary-color: #00BDD3;
-$background-color: #F8F8F8;
+// pallet
+$primary__color: #F4E041;
+$secondary__color: #00BDD3;
+$background__color: #F8F8F8;
+//buttons
+$button--hover: #FFE302;
+$button-bg--disabled: #B4B4B4;
+$button-text--disabled: #FFFFFFDE;
+
+.primary {
+  background-color: $primary__color;
+}
+
+.secondary {
+  background-color: $secondary__color;
+}
+
+.background {
+  background-color: $background__color;
+}
+

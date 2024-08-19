@@ -1,9 +1,22 @@
-@mixin headingFont {
+@use 'variables' as *;
+@use 'colors' as *;
+
+@mixin heading-font {
  font-size: 40px;
   line-height: 40px;
 }
 
-@mixin bodyFont {
+@mixin body-font {
   font-size: 16px;
   line-height: 26px;
+}
+
+@mixin hover-transition {
+  transition: $transition;
+  cursor: pointer;
+}
+
+@mixin button__disabled {
+  background-color: $button-bg--disabled;
+  color: $button-text--disabled;
 }
