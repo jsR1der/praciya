@@ -2,6 +2,7 @@
 
 body {
   font-family: "Nunito", sans-serif;
+  background-color: styles.$background-color;
   @include styles.bodyFont;
 }
 
