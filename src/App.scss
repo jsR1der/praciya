@@ -1,1 +1,10 @@
 @use "./styles";
+
+body {
+  font-family: "Nunito", sans-serif;
+  @include styles.bodyFont;
+}
+
+h1 {
+  @include styles.headingFont
+}
