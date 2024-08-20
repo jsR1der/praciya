@@ -5,7 +5,7 @@ function Button(config: ButtonConfig) {
     const buttonStyles = config.disabled ? 'button--disabled' : `button--hover ${config.colorClass}`
 
     return <button className={'button ' + buttonStyles} onClick={() => console.log('clicked!')}>
-        ClickMe
+        {config.text}
     </button>
 }
 

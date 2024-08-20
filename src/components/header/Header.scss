@@ -1,0 +1,11 @@
+@use '../../styles/variables' as *;
+
+.header {
+  padding-inline: $default-gap;
+  height: 60px;
+  background: white;
+}
+
+.buttons {
+  gap: $default-gap;
+}

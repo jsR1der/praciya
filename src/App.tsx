@@ -1,11 +1,11 @@
 import './App.scss'
-import Card from "./components/card/Card.tsx";
+import Header from "./components/header/Header.tsx";
 
 function App() {
 
     return (
         <>
-            <Card></Card>
+            <Header></Header>
         </>
     )
 }

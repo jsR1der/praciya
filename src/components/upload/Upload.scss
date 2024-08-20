@@ -11,7 +11,7 @@ $empty-upload-border: 1px solid $empty-input__border;
 
   button {
     cursor: pointer;
-    padding-inline: $input-default-gap;
+    padding-inline: $default-gap;
     height: 100%;
     background: none;
     border: 1px solid black;
@@ -20,7 +20,7 @@ $empty-upload-border: 1px solid $empty-input__border;
 
   div {
     text-overflow: ellipsis;
-    padding-left: $input-default-gap;
+    padding-left: $default-gap;
     width: 100%;
     height: 100%;
     display: flex;
