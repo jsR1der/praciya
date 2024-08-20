@@ -1,0 +1,15 @@
+$card-gap: 20px;
+.card-container {
+  background: white;
+  border-radius: 4px;
+  justify-items: center;
+  gap: $card-gap;
+  padding: $card-gap;
+  .image {
+    display: block;
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    object-fit: cover;
+  }
+}

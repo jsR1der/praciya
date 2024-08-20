@@ -1,11 +1,11 @@
 import './App.scss'
-import Input from "./components/input/Input.tsx";
+import Card from "./components/card/Card.tsx";
 
 function App() {
 
     return (
         <>
-            <Input></Input>
+            <Card></Card>
         </>
     )
 }
