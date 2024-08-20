@@ -8,15 +8,17 @@ body {
     box-sizing: border-box;
     @include styles.body-font;
   }
+
+  h1 {
+    @include styles.heading-font;
+
+    h1, p {
+      margin: 0;
+      padding: 0;
+    }
+  }
 }
 
 // reset
-h1,p {
-  margin: 0;
-  padding: 0;
-}
 
 // font-sizes for heading
-h1 {
-  @include styles.heading-font
-}

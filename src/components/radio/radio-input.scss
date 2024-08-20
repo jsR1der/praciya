@@ -1,0 +1,4 @@
+@use '../../styles/colors' as *;
+.radio-button > .MuiRadio-root > span {
+  color: $secondary__color;
+}
