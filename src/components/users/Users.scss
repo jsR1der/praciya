@@ -1,0 +1,15 @@
+@use "../../styles/variables" as *;
+.card-grid {
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 5px;
+}
+
+.user-section {
+  display: flex;
+  flex-direction: column;
+  gap: $double-gap;
+  align-items: center;
+  margin-inline: 5%;
+}

@@ -1,4 +1,5 @@
 @use "../../styles/variables" as *;
 .form-container {
-  gap: 20px;
+  gap: $double-gap;
+  margin-inline: 5%;
 }
