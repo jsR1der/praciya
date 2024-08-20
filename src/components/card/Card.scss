@@ -1,10 +1,11 @@
-$card-gap: 20px;
+@use "../../styles/variables" as *;
+
 .card-grid {
   background: white;
   border-radius: 4px;
   justify-items: center;
-  gap: $card-gap;
-  padding: $card-gap;
+  gap: $default-gap;
+  padding: $default-gap;
 
   .image {
     display: block;

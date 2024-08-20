@@ -6,16 +6,16 @@ import Button from "../button/Button.tsx";
 import {Color} from "../../utils/types.ts";
 
 function Form() {
-    return <section className="flex flex-col items-center">
-        <form className="form-container grid justify-items-start grid-cols-1">
-            <h1>Working with POST request</h1>
+    return <section className="form-container flex flex-col gap-[10px] items-center">
+        <h1>Working with POST request</h1>
+        <form className="form grid justify-items-start justify-center grid-cols-1">
             <Input></Input>
             <Input></Input>
             <Input></Input>
             <RadioInput></RadioInput>
             <Upload></Upload>
-            <Button colorClass={Color.primary} text="Sign Up"></Button>
         </form>
+        <Button colorClass={Color.primary} text="Sign Up"></Button>
     </section>
 }
 

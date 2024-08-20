@@ -1,12 +1,14 @@
 @use "../../styles/variables" as *;
-.card-grid {
+
+.card-grid-list {
   display: grid;
   justify-items: center;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 5px;
+  gap: 20px;
 }
 
 .user-section {
+  margin-top: $section-gap;
   display: flex;
   flex-direction: column;
   gap: $double-gap;

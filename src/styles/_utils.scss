@@ -8,3 +8,11 @@
   justify-content: start;
   align-items: center;
 }
+
+.d-gap {
+  gap: $default-gap;
+}
+
+.db-gap {
+  gap: $double-gap;
+}

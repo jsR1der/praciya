@@ -1,5 +1,12 @@
 @use "../../styles/variables" as *;
+
 .form-container {
-  gap: $double-gap;
-  margin-inline: 5%;
+  margin-block: $section-gap;
+
+  .form {
+    gap: $double-gap;
+    margin-inline: 5%;
+  }
 }
+
+
