@@ -1,22 +1,17 @@
-$upload-height: 58px;
-$upload-width: 328px;
-$upload-gap: 10px;
+@use '../../styles/utils' as *;
+@use '../../styles/variables' as *;
+@use '../../styles/colors' as *;
+
 $button-border--radius: 4px 0 0 4px;
 $upload-indicator-border--radius: 0 4px 4px 0;
-$default-border: 1px solid black;
-$empty-upload-border: 1px solid #D0CFCF;
+$empty-upload-border: 1px solid $empty-input__border;
 
 
-.upload-container {
-  height: $upload-height;
-  width: $upload-width;
-  display: flex;
-  justify-content: start;
-  align-items: center;
+.input-container {
 
   button {
     cursor: pointer;
-    padding-inline: $upload-gap;
+    padding-inline: $input-default-gap;
     height: 100%;
     background: none;
     border: 1px solid black;
@@ -25,7 +20,7 @@ $empty-upload-border: 1px solid #D0CFCF;
 
   div {
     text-overflow: ellipsis;
-    padding-left: $upload-gap;
+    padding-left: $input-default-gap;
     width: 100%;
     height: 100%;
     display: flex;

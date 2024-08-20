@@ -23,7 +23,7 @@ function Upload() {
         //     show some kind of pop up
     }
 
-    return <div className="upload-container">
+    return <div className="input-container">
         <input ref={inputRef} id="fileUpload" accept={'image/*'} type="file" hidden={true}/>
         <button onClick={tryUpload} onChange={onChange}>Upload</button>
         <div>{imageUrl ? imageUrl : 'Upload your photo'}</div>

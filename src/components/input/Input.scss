@@ -1,0 +1,14 @@
+@use '../../styles/utils' as *;
+@use '../../styles/variables' as *;
+@use '../../styles/colors' as *;
+.input-container {
+  border-radius: 4px;
+  border: 1px solid $empty-input__border;
+  .input {
+    padding-inline: $input-default-gap;
+    width: 100%;
+    background: none;
+    border: none;
+    outline: none;
+  }
+}

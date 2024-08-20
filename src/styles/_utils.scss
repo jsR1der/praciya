@@ -1,0 +1,10 @@
+@use 'variables' as *;
+// input
+.input-container {
+  height: $input-height;
+  width: $input-width;
+  // replace later with tailwind
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
