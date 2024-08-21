@@ -1,13 +1,17 @@
 import './Card.scss';
 import Image from '../image/Image'
+import {User} from "../../utils/types.ts";
 
-function Card() {
-    return <div className="grid grid-cols-1 card-grid">
-            <Image url="https://www.terazmuzyka.pl/wp-content/uploads/news/ja/jacksparrow_1057.jpeg"></Image>
-            <p className="truncate w-full text-center name">Philip JohnsonPhilip JohnsonPhilip JohnsonPhilip JohnsonPhilip JohnsonPhilip JohnsonPhilip JohnsonPhilip JohnsonPhilip JohnsonPhilip JohnsonPhilip JohnsonPhilip JohnsonPhilip JohnsonPhilip JohnsonPhilip JohnsonPhilip JohnsonPhilip Johnson</p>
-            <p className="truncate w-full text-center title">Some developer</p>
-            <p className="truncate w-full text-center email">myEmail@gmail.com</p>
-            <p className="truncate w-full text-center phone">0974563455</p>
+function Card(props: { user: User }) {
+    return <div className="grid grid-cols-1 card-grid w-full">
+        <Image url={props.user.photo}></Image>
+        <p className="truncate w-full text-center name">{props.user.name}</p>
+
+        <div className="flex flex-col gap-[5px]">
+            <p className="truncate w-full text-center title">{props.user.position}</p>
+            <p className="truncate w-full text-center email">{props.user.email}</p>
+            <p className="truncate w-full text-center phone">{props.user.phone}</p>
+        </div>
     </div>
 }
 
