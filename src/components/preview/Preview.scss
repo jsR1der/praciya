@@ -1,4 +1,5 @@
 @use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
 
 .preview {
   background-image: url("../../assets/section1-bg.jpeg");
@@ -10,10 +11,7 @@
 }
 
 .preview__content {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  @include absolute-center;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -4,9 +4,24 @@ export enum Color {
     background = 'background'
 }
 
+export interface RequestResult {
+    success: boolean;
+}
 
-export interface UserPagination {
-    "success": boolean,
+export interface OnChangeCallback {
+    onChange: (...args: any[]) => any
+}
+
+export interface Positions extends RequestResult {
+    positions: Position[]
+}
+
+export interface Position {
+    id: number;
+    name: string;
+}
+
+export interface UserPagination extends RequestResult {
     "total_pages": number,
     "total_users": number,
     "count": number,
@@ -18,13 +33,16 @@ export interface UserPagination {
     users: User[]
 }
 
-export interface User {
+export interface User extends CreateUserPayload {
     id: string;
+    position: string;
+    registration_timestamp: number;
+}
+
+export interface CreateUserPayload {
     name: string;
     email: string;
     phone: string;
-    position: string;
     position_id: string;
-    registration_timestamp: number;
     photo: string;
 }

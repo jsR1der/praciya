@@ -1,6 +1,6 @@
 // apiService.js
 import axios, {AxiosResponse} from 'axios';
-import {UserPagination} from "./utils/types.ts";
+import {CreateUserPayload, Positions, UserPagination} from "./utils/types.ts";
 
 const API_BASE_URL = 'https://frontend-test-assignment-api.abz.agency/api/v1'; // Replace with your API base URL
 
@@ -37,14 +37,34 @@ export const getData = (response: AxiosResponse) => {
 
 
 export const getToken = async () => {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+        return true;
+    }
     const response = await apiService.get(`token`)
     const tokenPayload: any = getData(response);
     if (tokenPayload.success) {
         sessionStorage.setItem('token', tokenPayload.token)
+        return true;
     }
+    throw Error('Request failed')
 }
 
 export const getUserPagination = async (page: number) => {
     const response = await apiService.get<UserPagination[]>(`users`, {params: {page, count: 6}})
     return getData(response);
+}
+
+export const getPositions = async () => {
+    const response = await apiService.get<Positions>(`positions`)
+    return getData(response);
+}
+
+
+export const createUser = async (body: CreateUserPayload) => {
+    try {
+        const response = await apiService.post<CreateUserPayload>('users', {body})
+    } catch (e) {
+        console.error(e)
+    }
 }

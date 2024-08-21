@@ -1,6 +1,7 @@
 @use 'variables' as *;
 @use 'colors' as *;
 
+//fonts
 @mixin heading-font {
   font-size: 40px;
   line-height: 40px;
@@ -11,12 +12,22 @@
   line-height: 26px;
 }
 
+//animations and transitions
 @mixin hover-transition {
   transition: $transition;
   cursor: pointer;
 }
 
+// components
 @mixin button__disabled {
   background-color: $button-bg--disabled;
   color: $button-text--disabled;
+}
+
+// positioning
+@mixin absolute-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
 }

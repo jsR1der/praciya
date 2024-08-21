@@ -1,6 +1,7 @@
 @use "./styles";
 
-.app-container {
+.loader-container {
+  @include styles.absolute-center;
 }
 
 body {
