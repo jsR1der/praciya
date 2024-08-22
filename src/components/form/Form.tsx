@@ -6,6 +6,7 @@ import Button from "../button/Button.tsx";
 import {Color} from "../../utils/types.ts";
 import {useState} from "react";
 import {FormModel} from "./form.model.ts";
+import {getFileAsBinaryString} from "../upload/upload.service.ts";
 
 function Form() {
     const [form, setForm] = useState<FormModel>({name: '', email: '', phone: '', position_id: 0, photo: ''});
@@ -13,10 +14,20 @@ function Form() {
     const handleChange = (e: Event) => {
         const target = e.target as HTMLInputElement;
         if (target) {
-            setForm({...form, [target.name]: target.value})
+            try {
+                if (target.type === 'file') {
+                    getFileAsBinaryString(target.files).then(blob => {
+                        setForm({...form, [target.name]: blob})
+                    })
+                } else {
+                    setForm({...form, [target.name]: target.value})
+                }
+            } catch (e) {
+                console.error(e)
+            }
         }
-        console.log(form)
     }
+
 
     // const submit = () => {
     //
@@ -42,7 +53,7 @@ function Form() {
                 placeholder="Phone"
                 hint="+38 (XXX) XXX - XX - XX"></Input>
             <RadioInput onChange={handleChange}></RadioInput>
-            <Upload></Upload>
+            <Upload name="photo" onChange={handleChange}></Upload>
         </form>
         <Button colorClass={Color.primary} text="Sign Up"></Button>
     </section>
