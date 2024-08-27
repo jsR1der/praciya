@@ -1,18 +1,14 @@
 import './Input.scss';
-import {InputConfig} from "./input.config.ts";
+import {FieldError, UseFormRegisterReturn} from "react-hook-form";
 
-function Input(config: InputConfig) {
-    return <div className='input-outer-container'>
-        <div className={'input-container ' + (config.error ? 'error' : '')}>
-            <input name={config.name}
-                   value={config.value}
-                   type={config.type ? config.type : 'text'}
-                   placeholder={config.placeholder}
-                   onChange={config.onChange}
-                   className="input"/>
-        </div>
-        {config.error && <p className="error">{config.error}</p>}
-        {!config.error && config.hint && <p className="hint">{config.hint}</p>}
+function Input(props: { config: UseFormRegisterReturn , error: FieldError | undefined }) {
+    return <div className={'input-container'}>
+        <input
+            className={'input' + (props.error?.message ? ' error-border' : ' ')}
+            {...props.config}
+        />
+        <p className="error-message">{props.error?.message}</p>
+        {/*{!props.config.errorMsg && props.config.hint && <p className="hint">{props.config.hint}</p>}*/}
     </div>
 }
 

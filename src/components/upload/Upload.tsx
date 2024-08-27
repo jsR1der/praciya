@@ -1,47 +1,32 @@
 import './Upload.scss'
-import {useRef, useState} from "react";
-import {checkImageResolution, checkSize} from "./upload.service.ts";
+import {ChangeEvent, MouseEventHandler, useRef, useState} from "react";
+import {UseFormRegisterReturn} from "react-hook-form";
 
-function Upload(props: { onChange: (args: any) => any, name: string }) {
+function Upload(props: { config: UseFormRegisterReturn, onChange: (e: ChangeEvent<HTMLInputElement>) => void }) {
     const [image, setImage] = useState<File | null>(null)
     const inputRef = useRef<HTMLInputElement | null>(null)
 
 
-    const tryUpload = (event: any): void => {
+    const tryUpload: MouseEventHandler<HTMLButtonElement> = (event: any): void => {
         event.preventDefault();
         const input: HTMLInputElement | null = inputRef.current;
-        if (input) {
-            input.onchange = onChange;
-            input?.click()
-        }
-        //     show some kind of popup
-    }
-
-    const onChange = () => {
-        const input: HTMLInputElement | null = inputRef.current;
-        if (input?.files?.length && input.files.length > 0) {
-            try {
-                // validate file
-                const _URL = window.URL || window.webkitURL;
-                const file = input.files[0];
-                const image = new Image();
-                const objectUrl = _URL.createObjectURL(file);
-                checkSize(file.size);
-                image.onload = () => {
-                    checkImageResolution({width: image.width, height: image.height})
-                    setImage(file)
-                }
-                image.src = objectUrl;
-            } catch (e) {
-                // show snackbar with error
-                console.error(e)
+        input?.addEventListener('change', (e) => {
+            const target = e.target as HTMLInputElement;
+            if (target.files?.length) {
+                setImage(target.files[0])
+            } else {
+                throw Error('Fuck you!!!')
             }
-        }
-        //     show some kind of pop up
+        })
+        input?.click()
+
+
     }
 
-    return <div className="input-container">
-        <input ref={inputRef} id={props.name} name={props.name} onChange={props.onChange}
+    return <div className="input">
+        <input {...props.config}
+               onChange={props.onChange}
+               ref={(e) => inputRef.current = e}
                accept={'image/jpg,image/jpeg'} type="file"
                hidden={true}/>
         <button onClick={tryUpload}>Upload</button>

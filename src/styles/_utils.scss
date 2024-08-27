@@ -1,12 +1,9 @@
 @use 'variables' as *;
+@use 'colors' as *;
 // input
-.input-container {
+.input {
   height: $input-height;
   width: $input-width;
-  // replace later with tailwind
-  display: flex;
-  justify-content: start;
-  align-items: center;
 }
 
 .d-gap {
@@ -15,4 +12,8 @@
 
 .db-gap {
   gap: $double-gap;
+}
+
+.error-border {
+  border: 1px solid $error__color !important;
 }
