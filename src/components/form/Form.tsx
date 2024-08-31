@@ -9,19 +9,17 @@ import {regExps} from "./form.service.ts";
 import {SubmitHandler, useForm, UseFormRegisterReturn} from "react-hook-form";
 import {ChangeEvent} from "react";
 import {checkImageResolution, checkSize} from "../upload/upload.service.ts";
+import {createUser} from "../../apiService.ts";
 
 function Form() {
     const {register, handleSubmit, setValue, formState: {errors, isValid}} = useForm<CreateUserForm>()
 
     const submit: SubmitHandler<CreateUserForm> = (data: CreateUserForm) => {
         if (isValid) {
-            const fd = new FormData();
-            fd.append('name', data.name)
-            fd.append('email', data.email)
-            fd.append('phone', data.phone)
-            fd.append('position_id', data.position_id.toString())
-            fd.append('photo', data.photo)
-            fd.forEach(d => console.log(d))
+            data.photo.text().then(photoToSend => {
+                createUser({...data, photo: photoToSend, phone: `+38${data.phone}`}).then(console.log)
+            })
+
         }
         console.log(data)
         // send post request
@@ -63,23 +61,28 @@ function Form() {
                     value: regExps.name,
                     message: "Name should be from 2 to 60 characters length"
                 },
+                value: 'LeonidKuchma',
                 required: true
             })
             ,
         },
         email: {
-            ...register('email', {pattern: {value: regExps.email, message: "Invalid email"}})
+            ...register('email', {
+                pattern: {value: regExps.email, message: "Invalid email"},
+                value: 'leonidBig@ukr.net'
+            })
         },
         phone: {
             ...register('phone', {
                 pattern: {
                     value: regExps.phone,
                     message: "Phone should be 10 characters length and start with 0"
-                }
+                },
+                value: '0998877667'
             })
         },
         position_id: {
-            ...register('position_id'),
+            ...register('position_id', {value: 1}),
         },
         photo: {
             ...register('photo'),
@@ -88,12 +91,12 @@ function Form() {
 
 
     return <section className="form-container flex flex-col gap-[20px] items-center">
-        <h1>Working with POST request</h1>
+        <h1>Become client</h1>
         <form onSubmit={handleSubmit(submit)}
               className="form grid justify-items-start justify-center grid-cols-1">
-            <Input config={inputConfigs.name} error={errors.name}></Input>
-            <Input config={inputConfigs.email} error={errors.email}></Input>
-            <Input config={inputConfigs.phone} error={errors.phone}></Input>
+            <Input config={inputConfigs.name} placeholder="Your name" error={errors.name}></Input>
+            <Input config={inputConfigs.email} placeholder="Email" error={errors.email}></Input>
+            <Input config={inputConfigs.phone} placeholder="Phone" error={errors.phone}></Input>
             <RadioInput config={inputConfigs.position_id} onChange={radioChange}></RadioInput>
             <Upload config={inputConfigs.photo} onChange={fileChange}></Upload>
             <Button colorClass={Color.primary} type="submit" text="Sign Up"></Button>

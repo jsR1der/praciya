@@ -7,7 +7,7 @@ function Card(props: { user: User }) {
         <Image url={props.user.photo}></Image>
         <p className="truncate w-full text-center name">{props.user.name}</p>
 
-        <div className="flex flex-col gap-[5px]">
+        <div className="flex flex-col w-full gap-[5px]">
             <p className="truncate w-full text-center title">{props.user.position}</p>
             <p className="truncate w-full text-center email">{props.user.email}</p>
             <p className="truncate w-full text-center phone">{props.user.phone}</p>

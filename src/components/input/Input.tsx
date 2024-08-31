@@ -1,9 +1,10 @@
 import './Input.scss';
 import {FieldError, UseFormRegisterReturn} from "react-hook-form";
 
-function Input(props: { config: UseFormRegisterReturn , error: FieldError | undefined }) {
+function Input(props: { config: UseFormRegisterReturn, placeholder: string, error: FieldError | undefined }) {
     return <div className={'input-container'}>
         <input
+            placeholder={props.placeholder}
             className={'input' + (props.error?.message ? ' error-border' : ' ')}
             {...props.config}
         />

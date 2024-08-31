@@ -17,12 +17,14 @@ function App() {
             {
                 isAuthenticated
                     ?
-                    <main className="app-container">
+                    <>
                         <Header></Header>
+                    <main className="app-container">
                         <Preview></Preview>
                         <Users></Users>
                         <Form></Form>
                     </main>
+                    </>
                     :
                     <div className="loader-container">
                         <Preloader size={70}></Preloader>

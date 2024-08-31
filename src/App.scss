@@ -4,6 +4,10 @@
   @include styles.absolute-center;
 }
 
+.app-container > * {
+  min-height: 600px;
+}
+
 body {
   font-family: "Nunito", sans-serif;
   background-color: styles.$background__color;

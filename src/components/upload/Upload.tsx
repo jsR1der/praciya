@@ -30,7 +30,7 @@ function Upload(props: { config: UseFormRegisterReturn, onChange: (e: ChangeEven
                accept={'image/jpg,image/jpeg'} type="file"
                hidden={true}/>
         <button onClick={tryUpload}>Upload</button>
-        <div>{image ? image.name : 'Upload your photo'}</div>
+        <div className="truncate">{image ? image.name : 'Upload your photo'}</div>
     </div>
 
 }

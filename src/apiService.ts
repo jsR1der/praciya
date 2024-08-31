@@ -61,10 +61,10 @@ export const getPositions = async () => {
 }
 
 
-export const createUser = async (body: CreateUserPayload) => {
+export const createUser = async (body: CreateUserPayload): Promise<any> => {
     try {
-        const response = await apiService.post<CreateUserPayload>('users', {body})
-    } catch (e) {
+        return await apiService.post<CreateUserPayload>('users', body)
+    } catch (e: any) {
         console.error(e)
     }
 }

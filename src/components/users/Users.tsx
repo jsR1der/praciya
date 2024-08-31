@@ -18,7 +18,7 @@ function Users() {
     }
 
     return <section className="user-section">
-        <h1>Working with GET request</h1>
+        <h1>Existing Clients</h1>
         <div className="card-grid-list w-full">
             {usersPagination?.users?.map(user => (<Card key={user.id} user={user}></Card>))}
         </div>

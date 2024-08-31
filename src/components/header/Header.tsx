@@ -8,7 +8,6 @@ function Header() {
     return <nav className="header flex items-center justify-between">
         <Logo></Logo>
         <div className='buttons flex'>
-            <Button colorClass={Color.primary} text="Users"></Button>
             <Button colorClass={Color.primary} text="Sign Up"></Button>
         </div>
 

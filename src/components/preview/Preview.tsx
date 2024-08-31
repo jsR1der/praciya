@@ -1,16 +1,14 @@
 import './Preview.scss';
-import Button from "../button/Button.tsx";
-import {Color} from "../../utils/types.ts";
 
 function Preview() {
     return <section className="preview">
         <div className="preview__content">
-            <h1>Test assignment for front-end developer</h1>
-            <p>What defines a good front-end developer is one that has skilled knowledge of HTML, CSS, JS with a vast
-                understanding of User design thinking as they'll be building web interfaces with accessibility in mind.
-                They
-                should also be excited to learn, as the world of Front-End Development keeps evolving.</p>
-            <Button colorClass={Color.primary} text="Sign Up"></Button>
+            <h1>Ukraine</h1>
+            <p>The flag of Ukraine consists of two horizontal stripes of equal width. The top stripe is blue,
+                symbolizing the sky, while the bottom stripe is yellow, representing the fertile wheat fields of the
+                country. This simple and striking design reflects Ukraine's rich agricultural heritage and the natural
+                beauty of its landscape. The flag's colors are deeply significant in Ukrainian culture and history,
+                symbolizing peace and prosperity.</p>
         </div>
     </section>
 }
