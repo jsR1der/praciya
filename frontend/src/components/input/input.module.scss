@@ -21,11 +21,6 @@
 
 
   .input {
-    // animate it somehow
-    //&:invalid ~ .error-message {
-    //  display: block;
-    //}
-
     border-radius: 4px;
     border: 1px solid $empty-input__border;
     padding-inline: $default-gap;

@@ -1,5 +1,4 @@
 import './Form.scss';
-import Input from "../input/Input.tsx";
 import RadioInput from "../radio/radio-input.tsx";
 import Upload from "../upload/Upload.tsx";
 import Button from "../button/Button.tsx";
@@ -10,23 +9,31 @@ import {SubmitHandler, useForm, UseFormRegisterReturn} from "react-hook-form";
 import {ChangeEvent} from "react";
 import {checkImageResolution, checkSize} from "../upload/upload.service.ts";
 import {createUser} from "../../apiService.ts";
+import {Input} from "../input/Input.tsx";
 
 function Form() {
-    const {register, handleSubmit, setValue, formState: {errors, isValid}} = useForm<CreateUserForm>()
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        formState: {errors, isValid}
+    } = useForm<CreateUserForm>({
+        reValidateMode: 'onChange',
+        criteriaMode: 'all',
+        mode: 'onBlur',
+        shouldFocusError: false,
+    })
 
     const submit: SubmitHandler<CreateUserForm> = (data: CreateUserForm) => {
         if (isValid) {
-            data.photo.text().then(photoToSend => {
-                createUser({...data, photo: photoToSend, phone: `+38${data.phone}`}).then(console.log)
-            })
-
+            createUser({...data, phone: `+38${data.phone}`}).then(console.log)
         }
-        console.log(data)
         // send post request
     }
     const radioChange = (e: ChangeEvent<HTMLInputElement>) => {
         const target = e.target;
-        setValue('position_id', +target.value, {shouldDirty: true, shouldTouch: true})
+        console.log(target.value)
+        setValue('position_id', target.value, {shouldDirty: true, shouldTouch: true})
     }
     const fileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const target = e.target;
@@ -62,7 +69,7 @@ function Form() {
                     message: "Name should be from 2 to 60 characters length"
                 },
                 value: 'LeonidKuchma',
-                required: true
+                required: true,
             })
             ,
         },
@@ -70,7 +77,8 @@ function Form() {
             ...register('email', {
                 pattern: {value: regExps.email, message: "Invalid email"},
                 value: 'leonidBig@ukr.net'
-            })
+            }),
+            required: true
         },
         phone: {
             ...register('phone', {
@@ -78,14 +86,15 @@ function Form() {
                     value: regExps.phone,
                     message: "Phone should be 10 characters length and start with 0"
                 },
-                value: '0998877667'
+                value: '0998877667',
+                required: true
             })
         },
         position_id: {
-            ...register('position_id', {value: 1}),
+            ...register('position_id', {value: "1"}),
         },
         photo: {
-            ...register('photo'),
+            ...register('photo', {required: true, pattern: {value: /.+/g, message: 'No file was uploaded'}}),
         }
     }
 
@@ -98,7 +107,7 @@ function Form() {
             <Input config={inputConfigs.email} placeholder="Email" error={errors.email}></Input>
             <Input config={inputConfigs.phone} placeholder="Phone" error={errors.phone}></Input>
             <RadioInput config={inputConfigs.position_id} onChange={radioChange}></RadioInput>
-            <Upload config={inputConfigs.photo} onChange={fileChange}></Upload>
+            <Upload config={inputConfigs.photo} onChange={fileChange} error={errors.photo}></Upload>
             <Button colorClass={Color.primary} type="submit" text="Sign Up"></Button>
         </form>
     </section>
