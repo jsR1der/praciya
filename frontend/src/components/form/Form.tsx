@@ -3,13 +3,13 @@ import RadioInput from "../radio/radio-input.tsx";
 import Upload from "../upload/Upload.tsx";
 import Button from "../button/Button.tsx";
 import {Color} from "../../utils/types.ts";
-import {CreateUserForm} from "./form.model.ts";
 import {regExps} from "./form.service.ts";
 import {SubmitHandler, useForm, UseFormRegisterReturn} from "react-hook-form";
-import {ChangeEvent} from "react";
+import {ChangeEvent, useEffect} from "react";
 import {checkImageResolution, checkSize} from "../upload/upload.service.ts";
 import {createUser} from "../../apiService.ts";
 import {Input} from "../input/Input.tsx";
+import {User} from "../../../../shared/models.ts";
 
 function Form() {
     const {
@@ -17,14 +17,18 @@ function Form() {
         handleSubmit,
         setValue,
         formState: {errors, isValid}
-    } = useForm<CreateUserForm>({
+    } = useForm<User>({
         reValidateMode: 'onChange',
         criteriaMode: 'all',
         mode: 'onBlur',
         shouldFocusError: false,
     })
 
-    const submit: SubmitHandler<CreateUserForm> = (data: CreateUserForm) => {
+    useEffect(() => {
+        console.log(errors)
+    })
+
+    const submit: SubmitHandler<User> = (data: User) => {
         if (isValid) {
             createUser({...data, phone: `+38${data.phone}`}).then(console.log)
         }
@@ -68,17 +72,16 @@ function Form() {
                     value: regExps.name,
                     message: "Name should be from 2 to 60 characters length"
                 },
-                value: 'LeonidKuchma',
                 required: true,
             })
             ,
         },
         email: {
             ...register('email', {
-                pattern: {value: regExps.email, message: "Invalid email"},
-                value: 'leonidBig@ukr.net'
-            }),
-            required: true
+                    pattern: {value: regExps.email, message: "Invalid email"},
+                    required: true
+                }
+            ),
         },
         phone: {
             ...register('phone', {
@@ -86,12 +89,11 @@ function Form() {
                     value: regExps.phone,
                     message: "Phone should be 10 characters length and start with 0"
                 },
-                value: '0998877667',
                 required: true
             })
         },
         position_id: {
-            ...register('position_id', {value: "1"}),
+            ...register('position_id'),
         },
         photo: {
             ...register('photo', {required: true, pattern: {value: /.+/g, message: 'No file was uploaded'}}),
