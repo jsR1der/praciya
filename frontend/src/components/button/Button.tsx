@@ -1,5 +1,5 @@
 import './Button.scss';
-import {ButtonConfig} from "./button.config.ts";
+import {ButtonConfig} from "../../models/button.config.ts";
 
 function Button(config: ButtonConfig) {
     const buttonStyles = config.disabled ? 'button--disabled' : `button--hover ${config.colorClass}`

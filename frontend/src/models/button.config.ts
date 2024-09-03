@@ -1,4 +1,4 @@
-import {Color} from "../../utils/types.ts";
+import {Color} from "../utils/types.ts";
 
 export interface ButtonConfig {
     text: string;
