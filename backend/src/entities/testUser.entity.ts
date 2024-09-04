@@ -4,14 +4,14 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 export class TestUser {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column({ length: 255 })
+  @Column({ length: 255, nullable: false })
   name: string;
-  @Column({ length: 255 })
+  @Column({ length: 255, nullable: false })
   email: string;
-  @Column({ length: 12 })
+  @Column({ length: 12, nullable: false })
   phone: string;
-  @Column({ type: 'int' })
+  @Column({ type: 'int', nullable: false })
   position_id: number;
-  @Column({ type: 'bytea' })
-  photo: File;
+  @Column({ type: 'bytea', nullable: false })
+  photo: Buffer;
 }

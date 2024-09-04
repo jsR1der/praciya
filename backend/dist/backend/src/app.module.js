@@ -13,6 +13,7 @@ const app_service_1 = require("./app.service");
 const typeorm_1 = require("@nestjs/typeorm");
 const config_1 = require("@nestjs/config");
 const testUser_entity_1 = require("./entities/testUser.entity");
+const users_module_1 = require("./users/users.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -37,7 +38,7 @@ exports.AppModule = AppModule = __decorate([
                     ssl: configService.get('ssl'),
                 }),
             }),
-            AppModule,
+            users_module_1.UsersModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

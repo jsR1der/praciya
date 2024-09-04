@@ -19,24 +19,24 @@ __decorate([
     __metadata("design:type", Number)
 ], TestUser.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 255 }),
+    (0, typeorm_1.Column)({ length: 255, nullable: false }),
     __metadata("design:type", String)
 ], TestUser.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 255 }),
+    (0, typeorm_1.Column)({ length: 255, nullable: false }),
     __metadata("design:type", String)
 ], TestUser.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 12 }),
+    (0, typeorm_1.Column)({ length: 12, nullable: false }),
     __metadata("design:type", String)
 ], TestUser.prototype, "phone", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'int' }),
+    (0, typeorm_1.Column)({ type: 'int', nullable: false }),
     __metadata("design:type", Number)
 ], TestUser.prototype, "position_id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'bytea' }),
-    __metadata("design:type", File)
+    (0, typeorm_1.Column)({ type: 'bytea', nullable: false }),
+    __metadata("design:type", Buffer)
 ], TestUser.prototype, "photo", void 0);
 exports.TestUser = TestUser = __decorate([
     (0, typeorm_1.Entity)({ name: 'testUsers' })

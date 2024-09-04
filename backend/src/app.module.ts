@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TestUser } from './entities/testUser.entity';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -25,7 +26,7 @@ import { TestUser } from './entities/testUser.entity';
         ssl: configService.get<boolean>('ssl'),
       }),
     }),
-    AppModule,
+    UsersModule,
   ],
 
   controllers: [AppController],

@@ -16,43 +16,8 @@ let AppController = class AppController {
     constructor(appService) {
         this.appService = appService;
     }
-    getAllUsers() { }
-    getUsersById() { }
-    createUser() { }
-    editUser() { }
-    deleteUser() { }
 };
 exports.AppController = AppController;
-__decorate([
-    (0, common_1.Get)('users'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], AppController.prototype, "getAllUsers", null);
-__decorate([
-    (0, common_1.Get)('users:id'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], AppController.prototype, "getUsersById", null);
-__decorate([
-    (0, common_1.Post)('users'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], AppController.prototype, "createUser", null);
-__decorate([
-    (0, common_1.Patch)('users:id'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], AppController.prototype, "editUser", null);
-__decorate([
-    (0, common_1.Delete)('users:id'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], AppController.prototype, "deleteUser", null);
 exports.AppController = AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [app_service_1.AppService])
