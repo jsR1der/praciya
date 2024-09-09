@@ -35,8 +35,8 @@ __decorate([
     __metadata("design:type", Number)
 ], TestUser.prototype, "position_id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'bytea', nullable: false }),
-    __metadata("design:type", Buffer)
+    (0, typeorm_1.Column)({ type: 'varchar', nullable: false, length: 255 }),
+    __metadata("design:type", String)
 ], TestUser.prototype, "photo", void 0);
 exports.TestUser = TestUser = __decorate([
     (0, typeorm_1.Entity)({ name: 'testUsers' })

@@ -21,15 +21,10 @@ export interface Position {
     name: string;
 }
 
-export interface UserPagination extends RequestResult {
-    "total_pages": number,
-    "total_users": number,
-    "count": number,
-    "page": number,
-    "links": {
-        "next_url": string,
-        "prev_url": string
-    },
+export interface UserPagination {
+    pages: number,
+    current: number,
+    count: number,
     users: User[]
 }
 
@@ -39,10 +34,10 @@ export interface User extends CreateUserPayload {
     registration_timestamp: number;
 }
 
-export interface CreateUserPayload {
+export interface CreateUserPayload<T = File> {
     name: string;
     email: string;
     phone: string;
     position_id: string;
-    photo: File;
+    photo: T;
 }

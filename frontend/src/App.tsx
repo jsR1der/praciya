@@ -4,13 +4,12 @@ import Form from "./components/form/Form.tsx";
 import Users from "./components/users/Users.tsx";
 import Preview from "./components/preview/Preview.tsx";
 import {useEffect, useState} from "react";
-import {getToken} from "./apiService.ts";
 import Preloader from "./components/preloader/Preloader.tsx";
 
 function App() {
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true)
     useEffect(() => {
-        getToken().then((response) => setIsAuthenticated(response))
+        // getToken().then((response) => setIsAuthenticated(response))
     }, [])
     return (
         <>
@@ -19,11 +18,11 @@ function App() {
                     ?
                     <>
                         <Header></Header>
-                    <main className="app-container">
-                        <Preview></Preview>
-                        <Users></Users>
-                        <Form></Form>
-                    </main>
+                        <main className="app-container">
+                            <Preview></Preview>
+                            <Users></Users>
+                            <Form></Form>
+                        </main>
                     </>
                     :
                     <div className="loader-container">

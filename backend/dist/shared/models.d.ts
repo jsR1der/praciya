@@ -4,5 +4,5 @@ export declare class User<T = File> {
     email: string;
     phone: string;
     position_id: number;
-    photo: T;
+    photo?: T;
 }

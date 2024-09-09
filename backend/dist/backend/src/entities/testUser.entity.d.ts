@@ -4,5 +4,5 @@ export declare class TestUser {
     email: string;
     phone: string;
     position_id: number;
-    photo: Buffer;
+    photo: string;
 }

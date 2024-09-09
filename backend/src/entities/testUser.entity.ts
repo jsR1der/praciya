@@ -12,6 +12,6 @@ export class TestUser {
   phone: string;
   @Column({ type: 'int', nullable: false })
   position_id: number;
-  @Column({ type: 'bytea', nullable: false })
-  photo: Buffer;
+  @Column({ type: 'varchar', nullable: false, length: 255 })
+  photo: string;
 }

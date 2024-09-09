@@ -17,12 +17,23 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const testUser_entity_1 = require("../entities/testUser.entity");
 const typeorm_2 = require("typeorm");
+const s3_service_1 = require("../s3.service");
 let UsersService = class UsersService {
-    constructor(userRepository) {
+    constructor(userRepository, s3Service) {
         this.userRepository = userRepository;
+        this.s3Service = s3Service;
     }
-    async getAll() {
-        return await this.userRepository.find();
+    async getPaginatedUsers(payload) {
+        const users = await this.userRepository.find();
+        return this.calculatePagination(users, payload);
+    }
+    calculatePagination(users, payload) {
+        return {
+            current: payload.count ? payload.count : 1,
+            pages: Math.ceil(users.length / payload.count),
+            count: payload.count,
+            users,
+        };
     }
     async getById(id) {
         return await this.userRepository.findBy({ id: id });
@@ -33,8 +44,12 @@ let UsersService = class UsersService {
     async delete(id) {
         return await this.userRepository.delete({ id });
     }
-    async create(user) {
-        const newEntry = this.userRepository.create(user);
+    async create(user, file) {
+        const photoUrl = await this.s3Service.uploadFile(file);
+        if (!photoUrl) {
+            throw new Error('Something with s3 bucket');
+        }
+        const newEntry = this.userRepository.create({ ...user, photo: photoUrl });
         return await this.userRepository.save(newEntry);
     }
 };
@@ -42,6 +57,7 @@ exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(testUser_entity_1.TestUser)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        s3_service_1.S3Service])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

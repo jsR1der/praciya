@@ -6,20 +6,24 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { User } from '../../../shared/models';
 import { UsersService } from './users.service';
+import { UsersPagination } from './users.model';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  public getAllUsers(): void {
-    this.usersService.getAll().then(console.log).catch(console.log);
+  public async getAllUsers(
+    @Query() params: { count: number; current: number },
+  ): Promise<UsersPagination> {
+    return await this.usersService.getPaginatedUsers(params);
   }
 
   @Get(':id')
@@ -29,13 +33,13 @@ export class UsersController {
 
   @Patch(':id')
   @UseInterceptors(FileInterceptor('photo'))
-  public editUser(
+  public updateUser(
     @UploadedFile() photo: Express.Multer.File,
     @Body() user: Omit<User, 'photo'>,
     @Param('id') id: string,
   ): void {
     this.usersService
-      .updateUser(+id, { ...user, photo: photo.buffer })
+      .updateUser(+id, { ...user })
       .then(console.log)
       .catch(console.log);
   }
@@ -50,15 +54,14 @@ export class UsersController {
 
   @Post()
   @UseInterceptors(FileInterceptor('photo'))
-  public upload(
+  public async upload(
     @UploadedFile() photo: Express.Multer.File,
     @Body() body: Omit<User, 'photo'>,
   ) {
-    const user: User<Buffer> = {
-      photo: photo.buffer,
+    const user: Omit<User, 'photo'> = {
       ...body,
       position_id: +body.position_id,
     };
-    this.usersService.create(user).then(console.log).catch(console.log);
+    return await this.usersService.create(user, photo);
   }
 }

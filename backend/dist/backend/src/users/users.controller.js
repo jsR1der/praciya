@@ -20,15 +20,15 @@ let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
     }
-    getAllUsers() {
-        this.usersService.getAll().then(console.log).catch(console.log);
+    async getAllUsers(params) {
+        return await this.usersService.getPaginatedUsers(params);
     }
     getUsersById(id) {
         this.usersService.getById(+id).then(console.log).catch(console.log);
     }
-    editUser(photo, user, id) {
+    updateUser(photo, user, id) {
         this.usersService
-            .updateUser(+id, { ...user, photo: photo.buffer })
+            .updateUser(+id, { ...user })
             .then(console.log)
             .catch(console.log);
     }
@@ -38,21 +38,21 @@ let UsersController = class UsersController {
             .then(() => `User with id ${id} has been deleted`)
             .catch(console.log);
     }
-    upload(photo, body) {
+    async upload(photo, body) {
         const user = {
-            photo: photo.buffer,
             ...body,
             position_id: +body.position_id,
         };
-        this.usersService.create(user).then(console.log).catch(console.log);
+        return await this.usersService.create(user, photo);
     }
 };
 exports.UsersController = UsersController;
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getAllUsers", null);
 __decorate([
     (0, common_1.Get)(':id'),
@@ -70,7 +70,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object, String]),
     __metadata("design:returntype", void 0)
-], UsersController.prototype, "editUser", null);
+], UsersController.prototype, "updateUser", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
@@ -85,7 +85,7 @@ __decorate([
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UsersController.prototype, "upload", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
