@@ -20,8 +20,14 @@ let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
     }
-    async getAllUsers(params) {
-        return await this.usersService.getPaginatedUsers(params);
+    async getAllUsers(params, res) {
+        setTimeout(async () => {
+            const result = await this.usersService.getPaginatedUsers(params);
+            res
+                .status(200)
+                .setHeader('Content-Type', 'application/json')
+                .send(result);
+        }, 2000);
     }
     getUsersById(id) {
         this.usersService.getById(+id).then(console.log).catch(console.log);
@@ -50,8 +56,9 @@ exports.UsersController = UsersController;
 __decorate([
     (0, common_1.Get)(),
     __param(0, (0, common_1.Query)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getAllUsers", null);
 __decorate([

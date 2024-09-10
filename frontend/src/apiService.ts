@@ -1,6 +1,7 @@
 // apiService.js
 import axios, {AxiosResponse} from 'axios';
-import {CreateUserPayload, Positions, UserPagination} from "./utils/types.ts";
+import {Positions, UserPagination} from "./utils/types.ts";
+import {User} from "../../shared/models.ts";
 
 const API_BASE_URL = 'http://localhost:3000/'; // Replace with your API base URL
 
@@ -50,7 +51,7 @@ export const getToken = async () => {
     throw Error('Request failed')
 }
 
-export const getUserPagination = async (page: number) => {
+export const getUserPagination = async (page: number): Promise<UserPagination> => {
     const response = await apiService.get<UserPagination[]>(`users`, {params: {page, count: 6}})
     return getData(response);
 }
@@ -61,10 +62,7 @@ export const getPositions = async () => {
 }
 
 
-export const createUser = async (body: CreateUserPayload): Promise<any> => {
-    try {
-        return await apiService.post<CreateUserPayload>('users', body)
-    } catch (e: any) {
-        console.error(e)
-    }
+export const createUser = async (body: User): Promise<User> => {
+    const response = await apiService.post<User>('users', body, {headers: {'Content-Type': 'multipart/form-data'}});
+    return getData(response);
 }

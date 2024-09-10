@@ -30,8 +30,7 @@ function Upload(props: {
 
     return <div>
         <div className="input">
-            <input {...props.config}
-                   onChange={props.onChange}
+            <input onChange={props.onChange}
                    ref={(e) => inputRef.current = e}
                    accept={'image/jpg,image/jpeg'} type="file"
                    hidden={true}/>

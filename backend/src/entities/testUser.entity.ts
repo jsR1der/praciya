@@ -8,7 +8,7 @@ export class TestUser {
   name: string;
   @Column({ length: 255, nullable: false })
   email: string;
-  @Column({ length: 12, nullable: false })
+  @Column({ length: 13, nullable: false })
   phone: string;
   @Column({ type: 'int', nullable: false })
   position_id: number;

@@ -1,13 +1,13 @@
 import { User } from '../../../shared/models';
 import { UsersService } from './users.service';
-import { UsersPagination } from './users.model';
+import { Response } from 'express';
 export declare class UsersController {
     private readonly usersService;
     constructor(usersService: UsersService);
     getAllUsers(params: {
         count: number;
         current: number;
-    }): Promise<UsersPagination>;
+    }, res: Response): Promise<void>;
     getUsersById(id: string): void;
     updateUser(photo: Express.Multer.File, user: Omit<User, 'photo'>, id: string): void;
     deleteUser(id: string): void;

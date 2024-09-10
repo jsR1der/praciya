@@ -5,39 +5,37 @@ import Button from "../button/Button.tsx";
 import {Color} from "../../utils/types.ts";
 import {regExps} from "./form.service.ts";
 import {SubmitHandler, useForm, UseFormRegisterReturn} from "react-hook-form";
-import {ChangeEvent, useEffect} from "react";
+import {ChangeEvent} from "react";
 import {checkImageResolution, checkSize} from "../upload/upload.service.ts";
-import {createUser} from "../../apiService.ts";
 import {Input} from "../input/Input.tsx";
 import {User} from "../../../../shared/models.ts";
+import {useUserMutation} from "../../query.ts";
 
 function Form() {
+    const mutation = useUserMutation();
     const {
         register,
         handleSubmit,
         setValue,
-        formState: {errors, isValid}
+        formState: {errors}
     } = useForm<User>({
         reValidateMode: 'onChange',
         criteriaMode: 'all',
-        mode: 'onBlur',
+        mode: 'onChange',
         shouldFocusError: false,
-    })
-
-    useEffect(() => {
-        console.log(errors)
+        defaultValues: {
+            position_id: 1
+        }
     })
 
     const submit: SubmitHandler<User> = (data: User) => {
-        if (isValid) {
-            createUser({...data, phone: `+38${data.phone}`}).then(console.log)
+        if (!Object.entries(errors).length) {
+            mutation.mutate({...data, phone: `+38${data.phone}`})
         }
-        // send post request
     }
     const radioChange = (e: ChangeEvent<HTMLInputElement>) => {
         const target = e.target;
-        console.log(target.value)
-        setValue('position_id', target.value, {shouldDirty: true, shouldTouch: true})
+        setValue('position_id', +target.value, {shouldDirty: true, shouldTouch: true})
     }
     const fileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const target = e.target;
@@ -50,7 +48,7 @@ function Form() {
                 checkSize(file.size);
                 image.onload = () => {
                     checkImageResolution({width: image.width, height: image.height})
-                    setValue('photo', file, {shouldDirty: true, shouldTouch: true})
+                    setValue('photo', file)
                 }
                 image.src = objectUrl;
             } catch (e) {
@@ -96,7 +94,7 @@ function Form() {
             ...register('position_id'),
         },
         photo: {
-            ...register('photo', {required: true, pattern: {value: /.+/g, message: 'No file was uploaded'}}),
+            ...register('photo', {required: true}),
         }
     }
 

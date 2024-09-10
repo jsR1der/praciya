@@ -7,13 +7,14 @@ import {
   Patch,
   Post,
   Query,
+  Res,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { User } from '../../../shared/models';
 import { UsersService } from './users.service';
-import { UsersPagination } from './users.model';
+import { Response } from 'express';
 
 @Controller('users')
 export class UsersController {
@@ -22,8 +23,15 @@ export class UsersController {
   @Get()
   public async getAllUsers(
     @Query() params: { count: number; current: number },
-  ): Promise<UsersPagination> {
-    return await this.usersService.getPaginatedUsers(params);
+    @Res() res: Response,
+  ) {
+    setTimeout(async () => {
+      const result = await this.usersService.getPaginatedUsers(params);
+      res
+        .status(200)
+        .setHeader('Content-Type', 'application/json')
+        .send(result);
+    }, 2000);
   }
 
   @Get(':id')

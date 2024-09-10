@@ -27,7 +27,7 @@ __decorate([
     __metadata("design:type", String)
 ], TestUser.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 12, nullable: false }),
+    (0, typeorm_1.Column)({ length: 13, nullable: false }),
     __metadata("design:type", String)
 ], TestUser.prototype, "phone", void 0);
 __decorate([

@@ -1,9 +1,5 @@
 @use "./styles";
 
-.loader-container {
-  @include styles.absolute-center;
-}
-
 .app-container > * {
   min-height: 600px;
 }

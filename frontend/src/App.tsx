@@ -3,16 +3,16 @@ import Header from "./components/header/Header.tsx";
 import Form from "./components/form/Form.tsx";
 import Users from "./components/users/Users.tsx";
 import Preview from "./components/preview/Preview.tsx";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import Preloader from "./components/preloader/Preloader.tsx";
+import {persister, queryClient} from "./query.ts";
+import {PersistQueryClientProvider} from "@tanstack/react-query-persist-client";
 
-function App() {
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true)
-    useEffect(() => {
-        // getToken().then((response) => setIsAuthenticated(response))
-    }, [])
+
+const App = () => {
+    const [isAuthenticated] = useState<boolean>(true)
     return (
-        <>
+        <PersistQueryClientProvider persistOptions={{persister}} client={queryClient}>
             {
                 isAuthenticated
                     ?
@@ -25,11 +25,9 @@ function App() {
                         </main>
                     </>
                     :
-                    <div className="loader-container">
-                        <Preloader size={70}></Preloader>
-                    </div>
+                    <Preloader size={70}></Preloader>
             }
-        </>
+        </PersistQueryClientProvider>
 
     )
 }
