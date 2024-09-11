@@ -4,7 +4,7 @@ import {Color, UserPagination} from "../../utils/types.ts";
 import Card from "../card/Card.tsx";
 import Preloader from "../preloader/Preloader.tsx";
 import {useQuery} from "@tanstack/react-query";
-import {getUserPagination} from "../../apiService.ts";
+import {getUserPagination} from "../../services/api.service.ts";
 import {useState} from "react";
 
 

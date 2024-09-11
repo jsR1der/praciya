@@ -1,7 +1,7 @@
 // apiService.js
 import axios, {AxiosResponse} from 'axios';
-import {Positions, UserPagination} from "./utils/types.ts";
-import {User} from "../../shared/models.ts";
+import {Positions, UserPagination} from "../utils/types.ts";
+import {User} from "../../../shared/models.ts";
 
 const API_BASE_URL = 'http://localhost:3000/'; // Replace with your API base URL
 

@@ -3,10 +3,10 @@ import Header from "./components/header/Header.tsx";
 import Form from "./components/form/Form.tsx";
 import Users from "./components/users/Users.tsx";
 import Preview from "./components/preview/Preview.tsx";
-import {persister, queryClient} from "./query.ts";
+import {persister, queryClient} from "./services/query.service.ts";
 import {PersistQueryClientProvider} from "@tanstack/react-query-persist-client";
 import {useEffect} from "react";
-            import {useAuth0} from "@auth0/auth0-react";
+import {useAuth0} from "@auth0/auth0-react";
 
 
 const App = () => {

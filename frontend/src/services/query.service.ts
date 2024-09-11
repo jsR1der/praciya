@@ -1,7 +1,7 @@
 import {QueryClient, useMutation} from "@tanstack/react-query";
-import {createUser} from "./apiService.ts";
+import {createUser} from "./api.service.ts";
 import {createSyncStoragePersister} from "@tanstack/query-sync-storage-persister";
-import {User} from "../../shared/models.ts";
+import {User} from "../../../shared/models.ts";
 
 export const persister = createSyncStoragePersister({
     storage: window.localStorage,

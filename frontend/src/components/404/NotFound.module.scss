@@ -1,0 +1,5 @@
+@use '../../styles/mixins' as *;
+
+.not-found {
+  @include absolute-center;
+}

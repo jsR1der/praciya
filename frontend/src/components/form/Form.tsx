@@ -9,7 +9,7 @@ import {ChangeEvent} from "react";
 import {checkImageResolution, checkSize} from "../upload/upload.service.ts";
 import {Input} from "../input/Input.tsx";
 import {User} from "../../../../shared/models.ts";
-import {useUserMutation} from "../../query.ts";
+import {useUserMutation} from "../../services/query.service.ts";
 
 function Form() {
     const mutation = useUserMutation();
