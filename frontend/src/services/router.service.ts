@@ -1,21 +1,21 @@
 import {createBrowserRouter} from "react-router-dom";
 import App from "../App.tsx";
-import {Career} from "../components/career/Career.tsx";
 import {NotFound} from "../components/404/NotFound.tsx";
 import {Settings} from "../components/settings/Settings.tsx";
+import {CareerWithErrorBoundary} from "../components/career/CareerWithErrorBoundary.tsx";
 
 export const router = createBrowserRouter([
     {
         path: '/',
-        Component: App
+        Component: App,
     },
     {
         path: "career/:id",
-        Component: Career
+        Component: CareerWithErrorBoundary,
     },
     {
         path: 'settings',
-        Component: Settings
+        Component: Settings,
     },
     {
         path: "*",

@@ -30,7 +30,7 @@ function Form() {
 
     const submit: SubmitHandler<User> = (data: User) => {
         if (!Object.entries(errors).length) {
-            mutation.mutate({...data, phone: `+38${data.phone}`})
+                mutation.mutate({...data, phone: `+38${data.phone}`})
         }
     }
     const radioChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +56,7 @@ function Form() {
                 console.error(e)
             }
         } else {
+            // show snackbar instead
             console.log('no file')
         }
     }

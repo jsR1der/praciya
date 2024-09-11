@@ -1,4 +1,5 @@
-@use "./styles";
+@use "./styles/mixins" as *;
+@use "./styles/colors" as *;
 
 .app-container > * {
   min-height: 600px;
@@ -6,15 +7,15 @@
 
 body {
   font-family: "Nunito", sans-serif;
-  background-color: styles.$background__color;
+  background-color: $background__color;
 
   * {
     box-sizing: border-box;
-    @include styles.body-font;
+    @include body-font;
   }
 
   h1 {
-    @include styles.heading-font;
+    @include heading-font;
   }
 
   h1, p {
