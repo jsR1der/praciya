@@ -1,0 +1,31 @@
+services:
+
+  frontend:
+#    depends_on:
+#      backend:
+#        condition: service_healthy
+#        restart: true
+
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 4200:4200
+    networks:
+      - myNetwork
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - myNetwork
+#    healthcheck:
+
+
+
+networks:
+  myNetwork:
+    driver: bridge

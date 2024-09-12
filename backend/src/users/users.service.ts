@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TestUser } from '../entities/testUser.entity';
 import { Repository } from 'typeorm';
-import { User } from '../../../shared/models';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { PaginationPayload, UsersPagination } from './users.model';
 import { S3Service } from '../s3.service';
+import { User } from '../models';
 
 @Injectable()
 export class UsersService {

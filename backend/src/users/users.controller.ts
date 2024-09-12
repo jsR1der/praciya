@@ -12,9 +12,9 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { User } from '../../../shared/models';
 import { UsersService } from './users.service';
 import { Response } from 'express';
+import { User } from '../models';
 
 @Controller('users')
 export class UsersController {

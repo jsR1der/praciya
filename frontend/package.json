@@ -1,10 +1,10 @@
 {
-  "name": "abzagencytest",
+  "name": "paciya.org",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --port 4200",
+    "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"

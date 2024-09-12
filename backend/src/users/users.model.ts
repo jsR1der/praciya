@@ -1,4 +1,4 @@
-import { User } from '../../../shared/models';
+import { User } from '../models';
 
 export interface UsersPagination extends PaginationPayload {
   pages: number;
