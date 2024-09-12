@@ -1,11 +1,10 @@
 services:
-
   frontend:
-#    depends_on:
-#      backend:
-#        condition: service_healthy
-#        restart: true
-
+  #    depends_on:
+  #      backend:
+  #        condition: service_healthy
+  #        restart: true
+    platform: linux/amd64
     build:
       context: ./frontend
       dockerfile: Dockerfile
@@ -13,8 +12,12 @@ services:
       - 4200:4200
     networks:
       - myNetwork
+  #    working_dir: /app
+  #    volumes:
+  #      - ./frontend:/app
 
   backend:
+    platform: linux/amd64
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -22,6 +25,9 @@ services:
       - 3000:3000
     networks:
       - myNetwork
+#    working_dir: /app
+#    volumes:
+#      - ./backend:/app
 #    healthcheck:
 
 
