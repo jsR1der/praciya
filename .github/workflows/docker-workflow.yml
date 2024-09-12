@@ -29,8 +29,9 @@ jobs:
 
       - name: Build and push Docker images
         run: |
-          docker-compose build
+          docker-compose up --build
           docker-compose push
+          docker-compose down
 
         #      - name: Deploy or other steps
         # Add additional steps here, if needed (e.g., deploy to a server)
