@@ -1,24 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TestUser } from '../entities/testUser.entity';
+import { TestUser } from './entities/testUser.entity';
 import { Repository } from 'typeorm';
-import { UpdateUserDto } from '../dto/update-user.dto';
+import { UpdateUserDto } from './dto/user/update-user.dto';
 import { PaginationPayload, UsersPagination } from './users.model';
-import { S3Service } from '../s3.service';
-import { User } from '../models';
+import { S3Service } from '../../services/s3.service';
+import { User } from '../../models';
+import { UserEntity } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(TestUser)
-    private readonly userRepository: Repository<TestUser>,
+    private readonly testUserRepository: Repository<TestUser>,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
     private readonly s3Service: S3Service,
   ) {}
 
   public async getPaginatedUsers(
     payload: PaginationPayload,
   ): Promise<UsersPagination> {
-    const users = await this.userRepository.find();
+    const users = await this.testUserRepository.find();
     return this.calculatePagination(users, payload);
   }
 
@@ -35,15 +38,18 @@ export class UsersService {
   }
 
   public async getById(id: number): Promise<any> {
-    return await this.userRepository.findBy({ id: id });
+    return await this.testUserRepository.findBy({ id: id });
   }
 
-  public async updateUser(id: number, updateDto: UpdateUserDto): Promise<any> {
-    return await this.userRepository.update({ id: id }, updateDto);
+  public async updateTestUser(
+    id: number,
+    updateDto: UpdateUserDto,
+  ): Promise<any> {
+    return await this.testUserRepository.update({ id: id }, updateDto);
   }
 
   public async delete(id: number): Promise<any> {
-    return await this.userRepository.delete({ id });
+    return await this.testUserRepository.delete({ id });
   }
 
   public async create(
@@ -54,7 +60,15 @@ export class UsersService {
     if (!photoUrl) {
       throw new Error('Something with s3 bucket');
     }
-    const newEntry = this.userRepository.create({ ...user, photo: photoUrl });
-    return await this.userRepository.save(newEntry);
+    const newEntry = this.testUserRepository.create({
+      ...user,
+      photo: photoUrl,
+    });
+    return await this.testUserRepository.save(newEntry);
+  }
+
+  public async createUser(user: UserEntity): Promise<UserEntity> {
+    const newUser = this.userRepository.create(user);
+    return await this.userRepository.save(newUser);
   }
 }

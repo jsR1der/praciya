@@ -9,26 +9,19 @@ import {useEffect} from "react";
 import {useAuth0} from "@auth0/auth0-react";
 import {GlobalErrorBoundary} from "./components/errors/globalErrorBoundary/GlobalErrorBoundary.tsx";
 import {ErrorBoundary} from "react-error-boundary";
-import {useAsyncErrorBoundary} from "./components/errors/asyncErrorBoundary/UseAsyncErrorBoundary.ts";
 
 
 const App = () => {
-    const catchAsync = useAsyncErrorBoundary();
+    // const catchAsync = useAsyncErrorBoundary();
     const {getAccessTokenSilently, isAuthenticated, isLoading} = useAuth0();
     useEffect(() => {
         const checkAuthSession = async () => {
-            try {
-                await getAccessTokenSilently();
-            } catch (e: unknown) {
-                catchAsync(e as Error)
-            }
+            await getAccessTokenSilently();
         }
         if (!isLoading && !isAuthenticated) {
-            checkAuthSession()
-                .then()
-                .catch(e => catchAsync(e))
+            checkAuthSession().then()
         }
-    }, [catchAsync, isAuthenticated, isLoading, getAccessTokenSilently])
+    }, [isAuthenticated, isLoading, getAccessTokenSilently])
 
     const onReset = () => window.history.back()
 

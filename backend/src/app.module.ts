@@ -3,8 +3,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TestUser } from './entities/testUser.entity';
-import { UsersModule } from './users/users.module';
+import { TestUser } from './resources/users/entities/testUser.entity';
+import { UserEntity } from './resources/users/entities/user.entity';
+import { CompaniesModule } from './resources/companies/companies.module';
+import { CompanyEntity } from './resources/companies/entities/company.entity';
+import { UsersModule } from './resources/users/users.module';
+import { JobsModule } from './resources/jobs/jobs.module';
+import { JobEntity } from './resources/jobs/entities/job.entity';
 
 @Module({
   imports: [
@@ -19,7 +24,7 @@ import { UsersModule } from './users/users.module';
         port: configService.get<number>('DBPORT'),
         password: configService.get<string>('PGPASSWORD'),
         username: configService.get<string>('PGUSER'),
-        entities: [TestUser],
+        entities: [TestUser, UserEntity, CompanyEntity, JobEntity],
         database: configService.get<string>('PGDATABASE'),
         synchronize: configService.get<boolean>('synchronize'),
         logging: configService.get<boolean>('logging'),
@@ -27,6 +32,8 @@ import { UsersModule } from './users/users.module';
       }),
     }),
     UsersModule,
+    JobsModule,
+    CompaniesModule,
   ],
 
   controllers: [AppController],

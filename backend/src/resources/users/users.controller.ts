@@ -14,7 +14,8 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UsersService } from './users.service';
 import { Response } from 'express';
-import { User } from '../models';
+import { User } from '../../models';
+import { UserEntity } from './entities/user.entity';
 
 @Controller('users')
 export class UsersController {
@@ -47,7 +48,7 @@ export class UsersController {
     @Param('id') id: string,
   ): void {
     this.usersService
-      .updateUser(+id, { ...user })
+      .updateTestUser(+id, { ...user })
       .then(console.log)
       .catch(console.log);
   }
@@ -71,5 +72,10 @@ export class UsersController {
       position_id: +body.position_id,
     };
     return await this.usersService.create(user, photo);
+  }
+
+  @Post('create')
+  private async createUser(@Body() body: UserEntity): Promise<UserEntity> {
+    return this.usersService.createUser(body);
   }
 }
