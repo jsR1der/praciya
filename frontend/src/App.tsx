@@ -11,8 +11,7 @@ export const App = () => {
                            authorizationParams={{
                                redirect_uri: window.location.origin
                            }}>
-
-                    <Router></Router>
+                <Router></Router>
             </Auth0Provider>
         </>
     );

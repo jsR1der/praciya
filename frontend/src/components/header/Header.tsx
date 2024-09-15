@@ -8,19 +8,22 @@ import {useContext} from "react";
 import {Context} from "../../services/context.service.ts";
 
 function Header() {
-    const {context, setContext} = useContext(Context);
+    const {setContext} = useContext(Context);
     const {loginWithRedirect, logout: auth0Logout, isAuthenticated} = useAuth0()
     const login = async () => {
-        await loginWithRedirect().then().finally(() => {
-            if (setContext) {
-                setContext(null)
-            } else {
-                throw new Error("Something went wrong during initialization")
-            }
-        })
+        await loginWithRedirect().then()
     }
     const logout = async () => {
-        await auth0Logout()
+        try {
+            await auth0Logout()
+            if (setContext) {
+                setContext(null)
+            }
+        } catch (e) {
+            // !todo duno
+            console.error(e)
+        }
+
     }
     return <nav className="header flex items-center justify-between">
         <Logo></Logo>

@@ -8,7 +8,7 @@ import {useAuth0} from "@auth0/auth0-react";
 import {isUserExist, parseUser} from "../utils/auth.ts";
 
 export const Layout = () => {
-    const [context, setContext] = useState<ContextValueType>(null)
+    const [_, setContext] = useState<ContextValueType>(null)
     const contextValue = useContext(Context);
     const {getAccessTokenSilently, isAuthenticated, isLoading} = useAuth0();
     const saveUser = (user: any) => {

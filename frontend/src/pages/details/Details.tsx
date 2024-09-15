@@ -9,7 +9,6 @@ export const Details = () => {
     useEffect(() => {
         console.log(isAuthenticated)
     }, [isAuthenticated]);
-    console.log(`details`)
     // const catchAsync = useAsyncErrorBoundary();
     const {id} = useParams();
     return <div>{id}</div>
