@@ -4,11 +4,10 @@ import Button from "../button/Button.tsx";
 import {Color} from "../../utils/types.ts";
 import Logo from '../Logo/Logo.tsx';
 import {useAuth0} from "@auth0/auth0-react";
-import {useContext} from "react";
-import {Context} from "../../services/context.service.ts";
+import {User} from "../user/User.tsx";
+import {DefaultUserModel} from "../../models/defaultUser.model.ts";
 
-function Header() {
-    const {setContext} = useContext(Context);
+function Header(props: { user: DefaultUserModel }) {
     const {loginWithRedirect, logout: auth0Logout, isAuthenticated} = useAuth0()
     const login = async () => {
         await loginWithRedirect().then()
@@ -16,11 +15,8 @@ function Header() {
     const logout = async () => {
         try {
             await auth0Logout()
-            if (setContext) {
-                setContext(null)
-            }
         } catch (e) {
-            // !todo duno
+            // !todo dunno
             console.error(e)
         }
 
@@ -29,7 +25,8 @@ function Header() {
         <Logo></Logo>
         <div className='buttons flex'>
             {isAuthenticated ?
-                <Button colorClass={Color.primary} action={logout} text="Logout"></Button>
+                //!todo make it smooth
+                props.user && <User user={props.user} logout={logout}></User>
                 :
                 <Button colorClass={Color.primary} action={login} text="Login"></Button>
             }
