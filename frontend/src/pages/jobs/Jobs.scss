@@ -1,0 +1,29 @@
+@use "../../styles/mixins" as *;
+@use "../../styles/colors" as *;
+
+.app-container > * {
+  min-height: 600px;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  background-color: $background__color;
+
+  * {
+    box-sizing: border-box;
+    @include body-font;
+  }
+
+  h1 {
+    @include heading-font;
+  }
+
+  h1, p {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+// reset
+
+// font-sizes for heading

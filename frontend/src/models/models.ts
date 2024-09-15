@@ -1,9 +1,8 @@
-export class User<T = File> {
+export class DefaultUser {
     id: number;
     name: string;
     email: string;
     phone: string;
     position_id: number;
-    photo?: T;
+    picture: string;
 }
-
