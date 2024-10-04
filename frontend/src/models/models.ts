@@ -1,4 +1,4 @@
-export class DefaultUser {
+export class ObsoleteUser {
     id: number;
     name: string;
     email: string;

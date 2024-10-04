@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TestUser } from './resources/users/entities/testUser.entity';
+import { TestUserEntity } from './resources/users/entities/testUser.entity';
 import { UserEntity } from './resources/users/entities/user.entity';
 import { CompaniesModule } from './resources/companies/companies.module';
 import { CompanyEntity } from './resources/companies/entities/company.entity';
@@ -24,7 +24,7 @@ import { JobEntity } from './resources/jobs/entities/job.entity';
         port: configService.get<number>('DBPORT'),
         password: configService.get<string>('PGPASSWORD'),
         username: configService.get<string>('PGUSER'),
-        entities: [TestUser, UserEntity, CompanyEntity, JobEntity],
+        entities: [TestUserEntity, UserEntity, CompanyEntity, JobEntity],
         database: configService.get<string>('PGDATABASE'),
         synchronize: configService.get<boolean>('synchronize'),
         logging: configService.get<boolean>('logging'),

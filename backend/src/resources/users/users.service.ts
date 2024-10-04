@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TestUser } from './entities/testUser.entity';
+import { TestUserEntity } from './entities/testUser.entity';
 import { Repository } from 'typeorm';
 import { UpdateUserDto } from './dto/user/update-user.dto';
 import { PaginationPayload, UsersPagination } from './users.model';
@@ -11,8 +11,8 @@ import { UserEntity } from './entities/user.entity';
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(TestUser)
-    private readonly testUserRepository: Repository<TestUser>,
+    @InjectRepository(TestUserEntity)
+    private readonly testUserRepository: Repository<TestUserEntity>,
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     private readonly s3Service: S3Service,
@@ -55,7 +55,7 @@ export class UsersService {
   public async create(
     user: Omit<User, 'photo'>,
     file: Express.Multer.File,
-  ): Promise<TestUser | null> {
+  ): Promise<TestUserEntity | null> {
     const photoUrl = await this.s3Service.uploadFile(file);
     if (!photoUrl) {
       throw new Error('Something with s3 bucket');

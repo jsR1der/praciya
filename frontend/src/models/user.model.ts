@@ -1,4 +1,4 @@
-export class DefaultUserModel {
+export class UserModel {
     name: string;
     nickname: string;
     updated_at: string;
@@ -13,5 +13,5 @@ export class DefaultUserModel {
         this.email_verified = data.email_verified;
         this.picture = data.picture;
     }
-
 }
+

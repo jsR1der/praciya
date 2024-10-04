@@ -1,10 +1,13 @@
+import {CurrencyEnum} from "./enums.model.ts";
+
 export interface JobModel {
+    id?: string;
     companyId: string;
     companyName: string;
     jobTitle: string;
     city: string | null;
     fork: number;
-    currency: 'USD' | 'EUR' | 'UAH';
+    currency: CurrencyEnum;
     description: string;
     views: number;
     applications_sent: number;

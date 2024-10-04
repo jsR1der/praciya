@@ -4,9 +4,9 @@ import {RoundedImage} from "../image/RoundedImage.tsx";
 import {Menu, MenuItem} from "@mui/material";
 import {SyntheticEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {DefaultUserModel} from "../../models/defaultUser.model.ts";
+import {UserModel} from "../../models/user.model.ts";
 
-export const User = (props: { user: DefaultUserModel, logout: () => Promise<void> }) => {
+export const User = (props: { user: UserModel, logout: () => Promise<void> }) => {
     const navigate = useNavigate()
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -24,7 +24,7 @@ export const User = (props: { user: DefaultUserModel, logout: () => Promise<void
 
     const navigateToSettings = () => {
         handleClose()
-        navigate('settings', {})
+        navigate('settings', {state: props.user})
     }
 
 

@@ -2,14 +2,13 @@ import './Form.scss';
 import RadioInput from "../radio/radio-input.tsx";
 import Upload from "../upload/Upload.tsx";
 import Button from "../button/Button.tsx";
-import {Color} from "../../utils/types.ts";
+import {Color, User} from "../../utils/types.ts";
 import {regExps} from "./form.service.ts";
 import {SubmitHandler, useForm, UseFormRegisterReturn} from "react-hook-form";
 import {ChangeEvent} from "react";
 import {checkImageResolution, checkSize} from "../upload/upload.service.ts";
 import {Input} from "../input/Input.tsx";
-import {User} from "../../../../shared/models.ts";
-import {useUserMutation} from "../../services/query.service.ts";
+import {useUserMutation} from "../../services/query-base.service.ts";
 
 function Form() {
     const mutation = useUserMutation();
@@ -24,18 +23,18 @@ function Form() {
         mode: 'onChange',
         shouldFocusError: false,
         defaultValues: {
-            position_id: 1
+            position_id: "1"
         }
     })
 
     const submit: SubmitHandler<User> = (data: User) => {
         if (!Object.entries(errors).length) {
-                mutation.mutate({...data, phone: `+38${data.phone}`})
+                // mutation.mutate({...data, phone: `+38${data.phone}`})
         }
     }
     const radioChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const target = e.target;
-        setValue('position_id', +target.value, {shouldDirty: true, shouldTouch: true})
+        // const target = e.target;
+        // setValue('position_id', +target.value, {shouldDirty: true, shouldTouch: true})
     }
     const fileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const target = e.target;

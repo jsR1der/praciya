@@ -1,27 +1,36 @@
 import {useMutation, useQuery} from "@tanstack/react-query";
-import {createCompany, getCompany} from "./companies-api.service.ts";
-import {UserModel} from "../../../models/user.model.ts";
+import {createCompany, editCompany, getCompany} from "./company.service.ts";
 import {CompanyModel} from "../../../models/company.model.ts";
+import {axiosRequest} from "../api-base.service.ts";
+import {queryClient} from "../../query-base.service.ts";
 
 
-export const useCompanyMutation = () => {
+export const useCreateCompanyMutation = () => {
     return useMutation({
         mutationKey: ['createCompany'],
-        mutationFn: async (props: {
-            company: CompanyModel,
-            user: UserModel
-        }) => createCompany(props.company, props.user),
+        mutationFn: async (company: Partial<CompanyModel>) => createCompany(company),
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({queryKey: ["getCompany"]})
+        },
     })
 }
 
-export const useCompanyQuery = (email: string) => {
+export const useEditCompanyMutation = () => {
+    return useMutation({
+        mutationKey: ['editCompany'],
+        mutationFn: async (company: Partial<CompanyModel>) => editCompany(company),
+    })
+}
+
+export const useCompanyQuery = (email: string | undefined) => {
     return useQuery<CompanyModel | null>(
         {
-            queryKey: ['getCompany'],
-            queryFn: async (): Promise<CompanyModel> => getCompany(email),
-            retry: 3,
+            queryKey: ['getCompany', email],
+            queryFn: async (): Promise<CompanyModel | null> => axiosRequest(await getCompany(email)),
+            retry: false,
             retryDelay: (attempt: number) => attempt === 1 ? 2000 : attempt * 1000,
             initialData: () => null,
-            refetchOnWindowFocus: false
+            refetchOnWindowFocus: false,
+            throwOnError: false
         });
 }

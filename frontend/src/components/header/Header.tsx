@@ -5,9 +5,9 @@ import {Color} from "../../utils/types.ts";
 import Logo from '../Logo/Logo.tsx';
 import {useAuth0} from "@auth0/auth0-react";
 import {User} from "../user/User.tsx";
-import {DefaultUserModel} from "../../models/defaultUser.model.ts";
+import {UserModel} from "../../models/user.model.ts";
 
-function Header(props: { user: DefaultUserModel }) {
+function Header(props: { user: UserModel }) {
     const {loginWithRedirect, logout: auth0Logout, isAuthenticated} = useAuth0()
     const login = async () => {
         await loginWithRedirect().then()

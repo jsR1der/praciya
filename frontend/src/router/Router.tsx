@@ -3,7 +3,9 @@ import {Layout} from "../layout/Layout.tsx";
 import Jobs from "../pages/jobs/Jobs.tsx";
 import {NotFound} from "../pages/404/NotFound.tsx";
 import {DetailsWithErrorBoundary} from "../pages/details/DetailsWithErrorBoundary.tsx";
-import {CompanySettings} from "../pages/company-settings/CompanySettings.tsx";
+import {Suspense} from "react";
+import {Settings} from "../pages/settings/Settings.tsx";
+
 
 export const Router = () => {
     return (<BrowserRouter>
@@ -11,7 +13,8 @@ export const Router = () => {
                 <Route path="/" Component={Layout}>
                     <Route index Component={Jobs}></Route>
                     <Route path=":id" Component={DetailsWithErrorBoundary}></Route>
-                    <Route path="settings" Component={CompanySettings}></Route>
+                    <Route path="settings"
+                           element={<Suspense fallback={<div>wait...</div>}><Settings></Settings></Suspense>}></Route>
                     <Route path="*" Component={NotFound}></Route>
                 </Route>
                 <Route path="*" Component={NotFound}></Route>

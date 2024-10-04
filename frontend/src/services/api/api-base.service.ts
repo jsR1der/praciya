@@ -1,34 +1,49 @@
-// apiService.js
-import axios, {AxiosResponse} from 'axios';
-import {Positions, UserPagination} from "../utils/types.ts";
-import {DefaultUser} from "../models/models.ts";
+// apiBaseService.js
+import axios, {AxiosInstance, AxiosResponse} from 'axios';
+import {Positions, UserPagination} from "../../utils/types.ts";
+import {ObsoleteUser} from "../../models/models.ts";
 
 const API_BASE_URL = 'http://localhost:3000/'; // Replace with your API base URL
 
-const apiService = axios.create({
+const apiBaseService = axios.create({
     baseURL: API_BASE_URL,
 });
 
+class ApiService {
+    private readonly axiosInstance: AxiosInstance;
 
-// apiService.interceptors.request.use(
+    get instance() {
+        return this.axiosInstance;
+    }
+
+    constructor() {
+        this.axiosInstance = apiBaseService;
+        Object.freeze(this.axiosInstance)
+    }
+}
+
+
+export const apiService = new ApiService();
+
+// apiBaseService.interceptors.request.use(
 //     (config) => {
-//         // add token to request here
-//         if (config.url !== 'token') {
-//             const token = sessionStorage.getItem('token');
-//             if (token) {
-//                 config.headers['Authorization'] = `Bearer ${token}`
-//             } else {
-//                 throw Error('Invalid request')
-//             }
-//         }
-//         return config;
+        // add token to request here
+        // if (config.url !== 'token') {
+        //     const token = sessionStorage.getItem('token');
+        //     if (token) {
+        //         config.headers['Authorization'] = `Bearer ${token}`
+        //     } else {
+        //         throw Error('Invalid request')
+        //     }
+        // }
+        // return config;
 //     },
 //     (error) => {
 //         return Promise.reject(error);
 //     }
 // );
 
-export const getData = (response: AxiosResponse) => {
+export const getData = <T>(response: AxiosResponse<T>) : T => {
     if (response.data) {
         return response.data;
     } else {
@@ -36,33 +51,20 @@ export const getData = (response: AxiosResponse) => {
     }
 };
 
-
-export const getToken = async () => {
-    const token = sessionStorage.getItem('token');
-    if (token) {
-        return true;
-    }
-    const response = await apiService.get(`token`)
-    const tokenPayload: any = getData(response);
-    if (tokenPayload.success) {
-        sessionStorage.setItem('token', tokenPayload.token)
-        return true;
-    }
-    throw Error('Request failed')
+export const axiosRequest = <T >(response: AxiosResponse<T>): T => {
+    return getData(response);
 }
 
 export const getUserPagination = async (page: number): Promise<UserPagination> => {
-    const response = await apiService.get<UserPagination[]>(`users`, {params: {page, count: 6}})
+    const response = await apiBaseService.get<UserPagination>(`users`, {params: {page, count: 6}})
     return getData(response);
 }
 
-export const getPositions = async () => {
-    const response = await apiService.get<Positions>(`positions`)
-    return getData(response);
+export const getPositions = async (): Promise<AxiosResponse<Positions>> => {
+    return await apiBaseService.get<Positions>(`positions`);
 }
 
 
-export const createUser = async (body: DefaultUser): Promise<DefaultUser> => {
-    const response = await apiService.post<DefaultUser>('users', body, {headers: {'Content-Type': 'multipart/form-data'}});
-    return getData(response);
+export const createUser = async (body: ObsoleteUser): Promise<AxiosResponse<ObsoleteUser>> => {
+    await apiBaseService.post<ObsoleteUser>('users', body, {headers: {'Content-Type': 'multipart/form-data'}});
 }

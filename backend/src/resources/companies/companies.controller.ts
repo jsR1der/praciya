@@ -16,8 +16,8 @@ export class CompaniesController {
   constructor(private readonly companiesService: CompaniesService) {}
 
   @Post()
-  create(@Body() company: CreateCompanyDto) {
-    return this.companiesService.createCompany(company);
+  public create(@Body() company: CreateCompanyDto) {
+    return this.companiesService.create(company);
   }
 
   @Get()
@@ -25,9 +25,9 @@ export class CompaniesController {
     return this.companiesService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.companiesService.findOne(+id);
+  @Get(':email')
+  findOne(@Param('email') email: string) {
+    return this.companiesService.findByEmail(email);
   }
 
   @Patch(':id')
