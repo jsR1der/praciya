@@ -1,11 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { CompanyEntity } from '../../companies/entities/company.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -23,7 +16,4 @@ export class UserEntity {
   updated_at: string;
   @Column({ length: 255, nullable: false })
   picture: string;
-  @OneToOne(() => CompanyEntity)
-  @JoinColumn()
-  company: CompanyEntity;
 }

@@ -1,5 +1,5 @@
 import {QueryClient, useMutation} from "@tanstack/react-query";
-import {createUser} from "./api.service.ts";
+import {createUser} from "./api/api-base.service.ts";
 import {createSyncStoragePersister} from "@tanstack/query-sync-storage-persister";
 import {DefaultUser} from "../models/models.ts";
 
