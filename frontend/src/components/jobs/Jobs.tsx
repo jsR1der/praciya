@@ -34,7 +34,7 @@ function Jobs() {
         }
 
         return <>
-            <h1>Existing Clients</h1>
+            <h1>Existing Jobs</h1>
             <div className="card-grid-list w-full">
                 {data.items.map(job => (<Job key={job.id} job={job}></Job>))}
             </div>

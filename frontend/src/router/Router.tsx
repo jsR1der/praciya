@@ -12,7 +12,7 @@ export const Router = () => {
             <Routes>
                 <Route path="/" Component={Layout}>
                     <Route index Component={JobsContainer}></Route>
-                    <Route path=":id" Component={DetailsWithErrorBoundary}></Route>
+                    <Route path="/jobs/:id" Component={DetailsWithErrorBoundary}></Route>
                     <Route path="settings"
                            element={<Suspense fallback={<div>wait...</div>}><Settings></Settings></Suspense>}></Route>
                     <Route path="*" Component={NotFound}></Route>
