@@ -8,10 +8,8 @@ import {SubmitHandler, useForm, UseFormRegisterReturn} from "react-hook-form";
 import {ChangeEvent} from "react";
 import {checkImageResolution, checkSize} from "../upload/upload.service.ts";
 import {Input} from "../input/Input.tsx";
-import {useUserMutation} from "../../services/query-base.service.ts";
 
 function Form() {
-    const mutation = useUserMutation();
     const {
         register,
         handleSubmit,

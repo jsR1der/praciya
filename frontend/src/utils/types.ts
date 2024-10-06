@@ -21,13 +21,6 @@ export interface Position {
     name: string;
 }
 
-export interface UserPagination {
-    pages: number,
-    current: number,
-    count: number,
-    users: User[]
-}
-
 export interface User extends CreateUserPayload {
     id: string;
     position: string;

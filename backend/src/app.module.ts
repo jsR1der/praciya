@@ -24,7 +24,7 @@ import { JobEntity } from './resources/jobs/entities/job.entity';
         port: configService.get<number>('DBPORT'),
         password: configService.get<string>('PGPASSWORD'),
         username: configService.get<string>('PGUSER'),
-        entities: [TestUserEntity, UserEntity, CompanyEntity, JobEntity],
+        entities: [TestUserEntity, CompanyEntity, JobEntity],
         database: configService.get<string>('PGDATABASE'),
         synchronize: configService.get<boolean>('synchronize'),
         logging: configService.get<boolean>('logging'),

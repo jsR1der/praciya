@@ -1,4 +1,4 @@
-import {JobModel} from "./job.model.ts";
+import {JobModel} from "./jobModel.ts";
 import {UserModel} from "./user.model.ts";
 
 export interface CompanyModel {

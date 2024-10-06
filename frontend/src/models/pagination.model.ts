@@ -1,9 +1,9 @@
 export interface Pagination<T> extends PaginationPayload {
-  pageCount: number;
-  items: T[];
+    pageCount: number;
+    items: T[];
 }
 
 export interface PaginationPayload {
-  limit: number;
-  page: number;
+    limit: number;
+    page: number;
 }
