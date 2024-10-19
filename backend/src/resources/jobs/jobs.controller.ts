@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   Param,
@@ -26,13 +27,15 @@ export class JobsController {
   public getAllWithPagination(
     @Query('limit', ParseIntPipe) limit: number,
     @Query('page', ParseIntPipe) page: number,
+    @Query('companyId', new DefaultValuePipe(null))
+    companyId: number | null,
   ) {
-    return this.jobsService.getAllWithPagination({ limit, page });
+    return this.jobsService.getAllWithPagination({ limit, page, companyId });
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.jobsService.findByCompany(+id);
+  findOne(@Param('id') companyId: string) {
+    return this.jobsService.getJobsByCompany(+companyId);
   }
 
   @Patch(':id')

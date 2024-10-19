@@ -15,6 +15,10 @@ export const getJobsWithPagination = async (params: PaginationPayload): Promise<
     return await apiService.instance.get<Pagination<JobModel>>(`jobs`, {params});
 }
 
+export const getJobsByCompany = async (companyId: number): Promise<AxiosResponse<JobModel[]>> => {
+    return await apiService.instance.get<JobModel[]>(`jobs/${companyId}`,);
+}
+
 // edit
 
 // delete ( will delete user along)

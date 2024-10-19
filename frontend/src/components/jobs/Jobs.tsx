@@ -6,11 +6,11 @@ import {ChangeEvent, useState} from "react";
 import {Pagination, Stack} from "@mui/material";
 import {PaginationPayload} from "../../models/pagination.model.ts";
 
-const initialJobsPagination: PaginationPayload = {limit: 6, page: 1};
+const initialJobsPagination: PaginationPayload = {limit: 6, page: 1, companyId: null};
 
-function Jobs() {
+function Jobs(props: { companyId?: number | null }) {
     const [state, setState] = useState(initialJobsPagination)
-    const {data, error, isFetching} = useJobsQuery(state);
+    const {data, error, isFetching} = useJobsQuery({...state, companyId: props.companyId});
 
     const changePage = (page: number) => {
         setState({...state, page})
@@ -34,7 +34,7 @@ function Jobs() {
         }
 
         return <>
-            <h1>Existing Jobs</h1>
+            <h1>{props.companyId ? "Company Positions" : "Existing Jobs"}</h1>
             <div className="card-grid-list w-full">
                 {data.items.map(job => (<Job key={job.id} job={job}></Job>))}
             </div>

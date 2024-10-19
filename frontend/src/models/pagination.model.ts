@@ -6,4 +6,5 @@ export interface Pagination<T> extends PaginationPayload {
 export interface PaginationPayload {
     limit: number;
     page: number;
+    companyId?: number | null;
 }

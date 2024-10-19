@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 function Job(props: { job: JobModel }) {
     const navigate = useNavigate();
     const showDetails = () => {
-        navigate(`jobs/${props.job.id}`, {state: props.job})
+        navigate(`/jobs/${props.job.id}`, {state: props.job})
     }
     return <div className="grid grid-cols-1 card-grid w-full">
         {/*<Image url={props.user.photo}></Image>*/}

@@ -4,7 +4,7 @@ import { UpdateJobDto } from './dto/update-job.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JobEntity } from './entities/job.entity';
 import { Repository } from 'typeorm';
-import { PaginationPayload } from '../users/users.model';
+import { JobsPagination, Pagination } from '../users/pagination.model';
 
 @Injectable()
 export class JobsService {
@@ -18,14 +18,20 @@ export class JobsService {
     return this.jobRepository.save(newJob);
   }
 
-  public async getAllWithPagination(payload: PaginationPayload) {
+  public async getAllWithPagination(
+    payload: JobsPagination,
+  ): Promise<Pagination<JobEntity>> {
     const total = await this.jobRepository.count();
-    const pageCount = this.divideIntoPages(payload, total);
     const items = await this.jobRepository.find({
       skip: (payload.page - 1) * payload.limit,
       take: payload.limit,
       order: { id: 'ASC' },
+      where: { companyId: payload.companyId },
     });
+    const pageCount = this.divideIntoPages(
+      payload,
+      payload.companyId ? items.length : total,
+    );
     return {
       ...payload,
       pageCount,
@@ -33,14 +39,14 @@ export class JobsService {
     };
   }
 
-  private divideIntoPages(payload: PaginationPayload, total: number): number {
+  private divideIntoPages(payload: JobsPagination, total: number): number {
     if (!total) {
       return 0;
     }
     return Math.ceil(total / payload.limit);
   }
 
-  findByCompany(companyId: number) {
+  public getJobsByCompany(companyId: number) {
     return this.jobRepository.findBy({ companyId });
   }
 

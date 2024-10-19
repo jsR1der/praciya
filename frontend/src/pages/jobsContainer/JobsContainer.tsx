@@ -12,7 +12,7 @@ const JobsContainer = () => {
     return (
         <PersistQueryClientProvider persistOptions={{persister}} client={queryClient}>
             <ErrorBoundary FallbackComponent={GlobalErrorBoundary} onReset={onReset}>
-                    <Jobs></Jobs>
+                <Jobs companyId={null}></Jobs>
             </ErrorBoundary>
         </PersistQueryClientProvider>
 

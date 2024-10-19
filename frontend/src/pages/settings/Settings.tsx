@@ -1,5 +1,4 @@
-// import styles from './Settings.module.scss';
-
+import styles from './Settings.module.scss';
 import {useAuth0} from "@auth0/auth0-react";
 import {Navigate, useLocation} from "react-router-dom";
 import {
@@ -11,12 +10,13 @@ import {useCompanyForm} from "./Settings.service.ts";
 import {SubmitHandler, UseFormRegisterReturn} from "react-hook-form";
 import {CompanyModel, UserToCompanyAdapter} from "../../models/company.model.ts";
 import {UserModel} from "../../models/user.model.ts";
-import {useEffect} from "react";
+import {Suspense, useEffect} from "react";
+import Jobs from "../../components/jobs/Jobs.tsx";
 
 export const Settings = () => {
     const {state: user} = useLocation()
+    const {data: company, error, isFetching, refetch} = useCompanyQuery(user?.email);
     const {isAuthenticated, isLoading} = useAuth0();
-    const {data, error, isFetching, refetch} = useCompanyQuery(user?.email);
     const createMutation = useCreateCompanyMutation();
     const editMutation = useEditCompanyMutation();
     const {
@@ -25,11 +25,11 @@ export const Settings = () => {
         setValue,
         errors,
         reset
-    } = useCompanyForm(data ? data : new UserToCompanyAdapter(user as UserModel).company);
+    } = useCompanyForm(company ? company : new UserToCompanyAdapter(user as UserModel).company);
 
     useEffect(() => {
-        reset(data ? data : new UserToCompanyAdapter(user as UserModel).company)
-    }, [data])
+        reset(company ? company : new UserToCompanyAdapter(user as UserModel).company)
+    }, [company])
     const inputs: Record<string,
         UseFormRegisterReturn> = {
         name: {
@@ -85,16 +85,22 @@ export const Settings = () => {
         if (!isAuthenticated) {
             return <Navigate to="/"></Navigate>
         }
-        return <form className={"flex flex-col d-gap abt-center"} onSubmit={handleSubmit(submit)}>
-            <h1>{data ? "Company" : "Create Company"}</h1>
-            <input {...inputs.name} placeholder={"Name"} className={"border-4"}/>
-            <input {...inputs.phone} placeholder={"Phone"} className={"border-4"}/>
-            <input {...inputs.email} placeholder={"Email"} className={"border-4"}/>
-            <input {...inputs.picture} placeholder={"Picture"} className={"border-4"}/>
-            <input {...inputs.linkedIn} placeholder={"LinkedIn"} className={"border-4"}/>
-            <input {...inputs.dou} placeholder={"Dou"} className={"border-4"}/>
-            <button type={"submit"} className={"border-4"}>Submit</button>
-        </form>
+        return <>
+            <form className={styles["form-section"] + " flex flex-col d-gap form-section"}
+                  onSubmit={handleSubmit(submit)}>
+                <h1>{company ? "Company" : "Create Company"}</h1>
+                <input {...inputs.name} placeholder={"Name"} className={"border-4"}/>
+                <input {...inputs.phone} placeholder={"Phone"} className={"border-4"}/>
+                <input {...inputs.email} placeholder={"Email"} className={"border-4"}/>
+                <input {...inputs.picture} placeholder={"Picture"} className={"border-4"}/>
+                <input {...inputs.linkedIn} placeholder={"LinkedIn"} className={"border-4"}/>
+                <input {...inputs.dou} placeholder={"Dou"} className={"border-4"}/>
+                <button type={"submit"} className={"border-4"}>Submit</button>
+            </form>
+            <Suspense fallback={<div>loading...</div>}>
+                <Jobs companyId={company!.id}></Jobs>
+            </Suspense>
+        </>
     }
     return getTemplate();
 }
