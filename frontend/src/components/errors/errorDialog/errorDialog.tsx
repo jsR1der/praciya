@@ -11,7 +11,7 @@ export const ErrorDialog = ({resetErrorCallback, open, error}: ErrorDialogProps)
     return (
         <Dialog open={open}>
             <div>{error.message}</div>
-            <Button colorClass={Color.primary} text="Retry" action={handleClose}></Button>
+            <Button classes={{color: Color.primary}} text="Retry" action={handleClose}></Button>
         </Dialog>
     );
 };

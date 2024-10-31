@@ -9,7 +9,7 @@ export const NotFound = () => {
         <div className={styles['not-found'] + ' flex flex-col items-center'}>
             Page not found!!!
             <Link to="/">
-                <Button colorClass={Color.primary} text="Return"></Button>
+                <Button classes={{color: Color.primary}} text="Return"></Button>
             </Link>
         </div>
     );

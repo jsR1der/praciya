@@ -1,0 +1,1 @@
+export const clickDebug = (e: unknown): unknown => console.log(`Click at ${(e as Event).target}`)

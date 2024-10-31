@@ -1,8 +1,9 @@
 import './Button.scss';
-import {ButtonConfig} from "../../models/button.config.ts";
+import {ReactElement} from "react";
+import {ButtonComponent} from "./buttonConfig.ts";
 
-function Button(config: ButtonConfig) {
-    const buttonStyles = config.disabled ? 'button--disabled' : `button--hover ${config.colorClass}`
+const Button: ButtonComponent = (config): ReactElement => {
+    const buttonStyles = config?.disabled ? 'button--disabled' : `button--hover ${config.classes.color}`
 
     return <button
         className={'button ' + buttonStyles}

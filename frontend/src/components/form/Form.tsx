@@ -26,11 +26,13 @@ function Form() {
     })
 
     const submit: SubmitHandler<User> = (data: User) => {
+        console.log(data)
         if (!Object.entries(errors).length) {
-                // mutation.mutate({...data, phone: `+38${data.phone}`})
+            // mutation.mutate({...data, phone: `+38${data.phone}`})
         }
     }
     const radioChange = (e: ChangeEvent<HTMLInputElement>) => {
+        console.log(e)
         // const target = e.target;
         // setValue('position_id', +target.value, {shouldDirty: true, shouldTouch: true})
     }
@@ -105,8 +107,8 @@ function Form() {
             <Input config={inputConfigs.email} placeholder="Email" error={errors.email}></Input>
             <Input config={inputConfigs.phone} placeholder="Phone" error={errors.phone}></Input>
             <RadioInput config={inputConfigs.position_id} onChange={radioChange}></RadioInput>
-            <Upload  onChange={fileChange} ></Upload>
-            <Button colorClass={Color.primary} type="submit" text="Sign Up"></Button>
+            <Upload onChange={fileChange}></Upload>
+            <Button classes={{color: Color.primary}} type="submit" text="Sign Up"></Button>
         </form>
     </section>
 }

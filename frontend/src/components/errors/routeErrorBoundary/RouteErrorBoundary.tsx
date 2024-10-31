@@ -9,6 +9,6 @@ export function RouteErrorBoundary() {
     }
     return <div className={"abt-center flex flex-col items-center"}>
         <div>I don't know what to do, but you got an error: {(error as Error)?.message}</div>
-        <Button colorClass={Color.primary} text="Return" action={returnBack}></Button>
+        <Button classes={{color: Color.primary}} text="Return" action={returnBack}></Button>
     </div>
 }

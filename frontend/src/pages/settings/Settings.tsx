@@ -12,24 +12,25 @@ import {CompanyModel, UserToCompanyAdapter} from "../../models/company.model.ts"
 import {UserModel} from "../../models/user.model.ts";
 import {Suspense, useEffect} from "react";
 import Jobs from "../../components/jobs/Jobs.tsx";
+import Button from "../../components/button/Button.tsx";
+import {Color} from "../../utils/types.ts";
+import {clickDebug} from "../../utils/functions.ts";
 
 export const Settings = () => {
     const {state: user} = useLocation()
-    const {data: company, error, isFetching, refetch} = useCompanyQuery(user?.email);
+    const {data: company, isFetching} = useCompanyQuery(user?.email);
     const {isAuthenticated, isLoading} = useAuth0();
     const createMutation = useCreateCompanyMutation();
     const editMutation = useEditCompanyMutation();
     const {
         register,
         handleSubmit,
-        setValue,
-        errors,
         reset
     } = useCompanyForm(company ? company : new UserToCompanyAdapter(user as UserModel).company);
 
     useEffect(() => {
         reset(company ? company : new UserToCompanyAdapter(user as UserModel).company)
-    }, [company])
+    }, [company, reset, user])
     const inputs: Record<string,
         UseFormRegisterReturn> = {
         name: {
@@ -65,9 +66,9 @@ export const Settings = () => {
     }
     // !todo find out how to replace this with some thing better
 
-    const createCompany = () => {
-        // mutation.mutate()
-    }
+    // const createCompany = () => {
+    //     // mutation.mutate()
+    // }
 
 
     const submit: SubmitHandler<Partial<CompanyModel>> = (data: Partial<CompanyModel>) => {
@@ -96,6 +97,12 @@ export const Settings = () => {
                 <input {...inputs.linkedIn} placeholder={"LinkedIn"} className={"border-4"}/>
                 <input {...inputs.dou} placeholder={"Dou"} className={"border-4"}/>
                 <button type={"submit"} className={"border-4"}>Submit</button>
+                <Button
+                    classes={{color: Color.primary}}
+                    text={'test'}
+                    action={clickDebug}
+                >
+                </Button>
             </form>
             <Suspense fallback={<div>loading...</div>}>
                 <Jobs companyId={company!.id}></Jobs>

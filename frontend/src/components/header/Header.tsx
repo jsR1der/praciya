@@ -28,7 +28,7 @@ function Header(props: { user: UserModel }) {
                 //!todo make it smooth
                 props.user && <User user={props.user} logout={logout}></User>
                 :
-                <Button colorClass={Color.primary} action={login} text="Login"></Button>
+                <Button classes={{color: Color.primary}} action={login} text="Login"></Button>
             }
         </div>
 
